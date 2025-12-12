@@ -1,29 +1,26 @@
-:root {
-  --bg: #09090b;
-  --text: #f4f4f5;
-  --muted: #a1a1aa;
+:root{
+  --bg:#09090b;
+  --text:#f4f4f5;
+  --muted:#a1a1aa;
+  --card: rgba(255,255,255,0.05);
+  --border: rgba(255,255,255,0.10);
 
-  --card: rgba(255, 255, 255, 0.05);
-  --border: rgba(255, 255, 255, 0.10);
+  --accentA:#fbbf24;
+  --accentB:#f97316;
 
-  --accentA: #fbbf24;
-  --accentB: #f97316;
+  --radius:24px;
+  --cardBlur:18px;
+  --cardShadow: 0 20px 80px rgba(0,0,0,0.45);
 
-  --radius: 24px;
+  --fontDisplay: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  --fontBody: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+
+  --density: 1;
+  --heroPattern: radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_55%);
+
+  --glowA: rgba(251,191,36,0.20);
+  --glowB: rgba(249,115,22,0.20);
 }
 
-/* Presets */
-[data-theme="amberFire"] {
-  --accentA: #fbbf24;
-  --accentB: #f97316;
-}
-
-[data-theme="mintNight"] {
-  --accentA: #34d399;
-  --accentB: #60a5fa;
-}
-
-[data-theme="roseLuxury"] {
-  --accentA: #fb7185;
-  --accentB: #a78bfa;
-}
+h1,h2,h3{ font-family: var(--fontDisplay); }
+body{ font-family: var(--fontBody); }

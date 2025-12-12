@@ -21,10 +21,11 @@ export default function HeroSection() {
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0">
-        <div className="absolute -top-40 -left-40 h-[520px] w-[520px] rounded-full bg-[var(--accentA)]/20 blur-3xl" />
-        <div className="absolute -bottom-40 -right-40 h-[520px] w-[520px] rounded-full bg-[var(--accentB)]/20 blur-3xl" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_55%)]" />
+        <div className="absolute -top-40 -left-40 h-[520px] w-[520px] rounded-full" style={{ background: "var(--glowA)", filter: "blur(64px)" }} />
+        <div className="absolute -bottom-40 -right-40 h-[520px] w-[520px] rounded-full" style={{ background: "var(--glowB)", filter: "blur(64px)" }} />
+        <div className="absolute inset-0" style={{ background: "var(--heroPattern)" }} />
       </div>
+
 
       <Container className="relative py-16 sm:py-20">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">

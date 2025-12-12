@@ -1,9 +1,14 @@
 export default function GlassCard({ className = "", children }) {
   return (
     <div
-      style={{ borderRadius: "var(--radius)" }}
+      style={{
+        borderRadius: "var(--radius)",
+        backdropFilter: `blur(var(--cardBlur))`,
+        WebkitBackdropFilter: `blur(var(--cardBlur))`,
+        boxShadow: "var(--cardShadow)",
+      }}
       className={[
-        "border bg-[var(--card)] backdrop-blur-xl shadow-[0_20px_80px_rgba(0,0,0,0.45)]",
+        "border bg-[var(--card)]",
         "border-[var(--border)]",
         className,
       ].join(" ")}
