@@ -12,6 +12,7 @@ import BenefitsEditor from "../components/customize/BenefitsEditor.jsx";
 import BestSellersEditor from "../components/customize/BestSellersEditor.jsx";
 import PromoEditor from "../components/customize/PromoEditor.jsx";
 import FooterEditor from "../components/customize/FooterEditor.jsx";
+import ContactEditor from "../components/customize/ContactEditor.jsx";
 import ComponentPreview from "../components/customize/ComponentPreview.jsx";
 
 import HeroSection from "../components/sections/HeroSection.jsx";
@@ -19,6 +20,7 @@ import BenefitsSection from "../components/sections/BenefitsSection.jsx";
 import BestSellersSection from "../components/sections/BestSellersSection.jsx";
 import PromoCtaSection from "../components/sections/PromoCtaSection.jsx";
 import Footer from "../components/Footer.jsx";
+import Contact from "../pages/Contact.jsx";
 
 const COMPONENTS = [
   { key: "general", label: "General" },
@@ -27,6 +29,7 @@ const COMPONENTS = [
   { key: "bestSellers", label: "BestSellers" },
   { key: "promo", label: "Promo CTA" },
   { key: "footer", label: "Footer" },
+  { key: "contact", label: "Contact" },
 ];
 
 function setOverride(setConfig, key, value) {
@@ -180,6 +183,63 @@ export default function Customize() {
                   <option value="minimal">Minimal</option>
                 </select>
               </div>
+
+              {/* Secciones Header (Navbar) */}
+              <div className="space-y-2">
+                <div className="text-sm font-semibold">Secciones (Header)</div>
+                <div className="text-xs text-[var(--muted)]">
+                  Controla qué enlaces aparecen en el menú superior. <b>Inicio</b> es obligatorio.
+                </div>
+
+                <div className="mt-3 space-y-2">
+                  {/* Carta */}
+                  <div className="flex items-center justify-between gap-2 rounded-2xl border border-[var(--border)] bg-[var(--card)] px-3 py-2">
+                    <label className="flex items-center gap-3 text-sm">
+                      <input
+                        type="checkbox"
+                        checked={!!config.pages?.menu?.enabled}
+                        onChange={() =>
+                          setConfig((p) => ({
+                            ...p,
+                            pages: {
+                              ...p.pages,
+                              menu: { ...(p.pages.menu || {}), enabled: !p.pages?.menu?.enabled },
+                            },
+                          }))
+                        }
+                      />
+                      <span>Carta</span>
+                    </label>
+                    <span className="text-xs text-[var(--muted)]">
+                      {config.pages?.menu?.enabled ? "Visible" : "Oculta"}
+                    </span>
+                  </div>
+
+                  {/* Contacto */}
+                  <div className="flex items-center justify-between gap-2 rounded-2xl border border-[var(--border)] bg-[var(--card)] px-3 py-2">
+                    <label className="flex items-center gap-3 text-sm">
+                      <input
+                        type="checkbox"
+                        checked={!!config.pages?.contact?.enabled}
+                        onChange={() =>
+                          setConfig((p) => ({
+                            ...p,
+                            pages: {
+                              ...p.pages,
+                              contact: { ...(p.pages.contact || {}), enabled: !p.pages?.contact?.enabled },
+                            },
+                          }))
+                        }
+                      />
+                      <span>Contacto</span>
+                    </label>
+                    <span className="text-xs text-[var(--muted)]">
+                      {config.pages?.contact?.enabled ? "Visible" : "Oculta"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
 
               {/* Secciones Home */}
               <div className="space-y-2">
@@ -363,6 +423,13 @@ export default function Customize() {
             </div>
           ) : null}
 
+          {active === "contact" ? (
+            <div className="border-t border-[var(--border)] pt-5">
+              <ContactEditor config={config} setConfig={setConfig} />
+            </div>
+          ) : null}
+
+
         </GlassCard>
 
         {/* RIGHT */}
@@ -398,6 +465,12 @@ export default function Customize() {
                 <Footer data={config.copy.footer} preview />
               </div>
             </ComponentPreview>
+          ) : active === "contact" ? (
+            <ComponentPreview title={`Preview — ${activeLabel}`}>
+              <div className="bg-[var(--bg)]">
+                <Contact data={config.copy.contactPage} preview />
+              </div>
+            </ComponentPreview>
           ) : (
             <GlassCard className="p-6">
               <div className="text-sm font-semibold">Preview</div>
@@ -409,6 +482,7 @@ export default function Customize() {
               </div>
             </GlassCard>
           )}
+
 
 
           {/* Export / Import (debajo del preview) */}

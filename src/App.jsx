@@ -15,16 +15,38 @@ function CustomizeGuard({ children }) {
   return config.pages.customize?.enabled ? children : <Navigate to="/" replace />;
 }
 
+function PageGuard({ enabled, children }) {
+  return enabled ? children : <Navigate to="/" replace />;
+}
+
 export default function App() {
+  const { config } = useSiteConfig();
+
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<SiteLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/carta" element={<Menu />} />
-          <Route path="/contacto" element={<Contact />} />
 
-          {/* Legal */}
+          <Route
+            path="/carta"
+            element={
+              <PageGuard enabled={!!config.pages.menu?.enabled}>
+                <Menu />
+              </PageGuard>
+            }
+          />
+
+          <Route
+            path="/contacto"
+            element={
+              <PageGuard enabled={!!config.pages.contact?.enabled}>
+                <Contact />
+              </PageGuard>
+            }
+          />
+
+          {/* Legal (si quieres también se puede controlar desde config, pero ahora fijo) */}
           <Route path="/legal" element={<Legal />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/cookies" element={<Cookies />} />
@@ -37,6 +59,7 @@ export default function App() {
               </CustomizeGuard>
             }
           />
+
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
