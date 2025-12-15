@@ -103,7 +103,7 @@ export default function SiteLayout() {
   }, [config, preset]);
 
   return (
-    <div className="min-h-full" ref={rootRef}>
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]" ref={rootRef}>
       <Navbar />
       <main className="pt-16">
         <Outlet />
