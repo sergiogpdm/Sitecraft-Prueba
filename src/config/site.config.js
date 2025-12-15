@@ -1,23 +1,41 @@
 export const siteConfig = {
   "brand": {
-    "name": "Forno Nero",
-    "tagline": "Pizza contemporánea al horno",
-    "emojiLogo": "🍕"
+    "name": "Sitecraft",
+    "tagline": "Webs personalizables",
+    "emojiLogo": "🖥️"
   },
   "links": {
     "whatsapp": "",
     "maps": "https://www.google.com/maps"
   },
   "contact": {
-    "phone": "000 000 000",
-    "address": "Calle Ejemplo 123, Tu Ciudad",
-    "hours": "L–D: 13:00–16:00 • 19:30–23:30"
+    "phone": "-",
+    "address": "Remote · Worldwide",
+    "hours": "Always online"
   },
   "theme": {
-    "preset": "roseLuxury",
+    "preset": "mintNight",
     "mode": "glass",
-    "scheme": "auto",
-    "overrides": {}
+    "scheme": "dark",
+    "overrides": {
+      "--accentA": "#22c55e",
+      "--accentB": "#06b6d4",
+      "--bg": "#070A12",
+      "--text": "#f4f4f5",
+      "--muted": "#d6d6d6",
+      "--border": "#1E293B",
+      "--card": "#0B1220",
+      "--radius": "28px",
+      "--cardBlur": "18px",
+      "--shadowY": "26px",
+      "--shadowBlur": "110px",
+      "--shadowOpacity": "0.55",
+      "--glowBlur": "72px",
+      "--glowA": "#22c55e",
+      "--glowB": "#06b6d4",
+      "--fontDisplay": "Poppins",
+      "--fontBody": "Inter"
+    }
   },
   "layout": {
     "showFloatingOrderButton": false,
@@ -56,77 +74,77 @@ export const siteConfig = {
   },
   "copy": {
     "hero": {
-      "badge": "Pizza artesanal · Ingredientes seleccionados",
-      "titleA": "Pizza hecha",
-      "titleHighlight": "con intención",
-      "titleB": "",
-      "subtitle": "Fermentación lenta, horno a alta temperatura y recetas pensadas para disfrutarse sin prisas.",
-      "primaryCta": "Ver carta",
-      "secondaryCta": "Ver ubicación",
+      "badge": "Webs personalizables · Gestión visual",
+      "titleA": "Diseña webs",
+      "titleHighlight": "a medida",
+      "titleB": "para negocios reales",
+      "subtitle": "Sitecraft te permite crear, personalizar y escalar webs profesionales sin tocar código.",
+      "primaryCta": "",
+      "secondaryCta": "",
       "imageHint": "Imagen real de la pizza aquí",
       "stats": [
         {
-          "title": "Horno",
-          "desc": "Alta temperatura"
+          "title": "Configuración",
+          "desc": "Visual y modular"
         },
         {
-          "title": "Masa",
-          "desc": "Fermentación lenta"
+          "title": "Diseño",
+          "desc": "Premium y adaptable"
         },
         {
-          "title": "Producto",
-          "desc": "Calidad seleccionada"
+          "title": "Gestión",
+          "desc": "Centralizada"
         }
       ]
     },
     "benefits": {
-      "kicker": "Experiencia premium",
-      "title": "Una pizzería moderna que se nota en cada detalle",
-      "desc": "Pensada para que te apetezca venir antes de terminar de ver la página.",
+      "kicker": "Plataforma",
+      "title": "Todo lo que necesitas para crear y vender webs",
+      "desc": "Pensado para estudios, freelancers y negocios que quieren destacar desde el primer clic.",
       "items": [
         {
-          "title": "Recetas cuidadas",
-          "desc": "Sabor claro, equilibrado y con ingredientes protagonistas."
+          "title": "100% personalizable",
+          "desc": "Cambia colores, tipografías, secciones y textos sin tocar código."
         },
         {
-          "title": "Calidad constante",
-          "desc": "Mismo estándar todos los días: masa, horno y producto."
+          "title": "Arquitectura modular",
+          "desc": "Cada componente es independiente y reutilizable."
         },
         {
-          "title": "Ambiente y marca",
-          "desc": "Una experiencia redonda: visual, aroma, textura y ritmo."
+          "title": "Preparado para escalar",
+          "desc": "Web hoy, app mañana, gestión siempre."
         }
       ]
     },
     "bestSellers": {
-      "kicker": "Nuestra selección",
-      "title": "Algunas de nuestras pizzas",
-      "desc": "Una pequeña muestra. La carta completa estará disponible próximamente.",
+      "kicker": "Componentes",
+      "title": "Algunos bloques disponibles",
+      "desc": "Ejemplos de secciones listas para usar y adaptar.",
       "items": [
         {
-          "name": "Margherita Forno",
+          "name": "Hero avanzado",
           "price": "—",
-          "desc": "Tomate San Marzano, mozzarella fior di latte, albahaca."
+          "desc": "Headers con animaciones y glows"
         },
         {
-          "name": "Diavola",
+          "name": "Landing blocks",
           "price": "—",
-          "desc": "Salami picante, mozzarella, aceite aromatizado."
+          "desc": "Secciones de venta modernas"
         },
         {
-          "name": "Trufa & Setas",
+          "name": "Footers legales",
           "price": "—",
-          "desc": "Base blanca, setas salteadas y trufa."
+          "desc": "Cumple normativa sin esfuerzo"
         }
       ],
-      "cta": "Ver carta completa"
+      "cta": ""
     },
     "promo": {
-      "kicker": "Ven a conocernos",
-      "title": "Pizza para disfrutar en el local",
-      "desc": "Estamos en el centro. Ven con calma y déjate sorprender.",
-      "primaryCta": "Ver ubicación",
-      "secondaryCta": "Ver carta"
+      "kicker": "Empieza hoy",
+      "title": "Crea tu próxima web con Sitecraft",
+      "desc": "Duplica el proyecto, cambia el customize y lanza en minutos.",
+      "primaryCta": "",
+      "secondaryCta": ""
     },
     "menuPage": {
       "kicker": "Carta",
@@ -137,14 +155,14 @@ export const siteConfig = {
     },
     "contactPage": {
       "kicker": "Contacto",
-      "title": "¿Dónde estamos?",
-      "desc": "Cámbialo por tu dirección real. Aquí también puedes meter un Google Maps embed.",
-      "primaryCta": "Llamar",
-      "secondaryCta": "Abrir en Maps",
+      "title": "¿Quieres usar Sitecraft?",
+      "desc": "Escríbenos. Estamos construyendo el futuro de las webs modulares.",
+      "primaryCta": "Contactar",
+      "secondaryCta": "Ver en GitHub",
       "mapPlaceholder": "Aquí va el mapa (embed)"
     },
     "footer": {
-      "about": "Artesanal, elegante y con ingredientes que se notan. Hecha para abrir la web y tener hambre.",
+      "about": "Sitecraft es una plataforma modular para crear webs modernas, escalables y personalizables.",
       "social": {
         "instagram": {
           "enabled": true,
