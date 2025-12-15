@@ -5,6 +5,9 @@ import Menu from "./pages/Menu.jsx";
 import Contact from "./pages/Contact.jsx";
 import Customize from "./pages/Customize.jsx";
 import NotFound from "./pages/NotFound.jsx";
+import Legal from "./pages/Legal.jsx";
+import Privacy from "./pages/Privacy.jsx";
+import Cookies from "./pages/Cookies.jsx";
 import { useSiteConfig } from "./context/SiteConfigContext.jsx";
 
 function CustomizeGuard({ children }) {
@@ -20,6 +23,12 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/carta" element={<Menu />} />
           <Route path="/contacto" element={<Contact />} />
+
+          {/* Legal */}
+          <Route path="/legal" element={<Legal />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/cookies" element={<Cookies />} />
+
           <Route
             path="/customize"
             element={

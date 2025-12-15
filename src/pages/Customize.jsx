@@ -11,12 +11,14 @@ import HeroEditor from "../components/customize/HeroEditor.jsx";
 import BenefitsEditor from "../components/customize/BenefitsEditor.jsx";
 import BestSellersEditor from "../components/customize/BestSellersEditor.jsx";
 import PromoEditor from "../components/customize/PromoEditor.jsx";
+import FooterEditor from "../components/customize/FooterEditor.jsx";
 import ComponentPreview from "../components/customize/ComponentPreview.jsx";
 
 import HeroSection from "../components/sections/HeroSection.jsx";
 import BenefitsSection from "../components/sections/BenefitsSection.jsx";
 import BestSellersSection from "../components/sections/BestSellersSection.jsx";
 import PromoCtaSection from "../components/sections/PromoCtaSection.jsx";
+import Footer from "../components/Footer.jsx";
 
 const COMPONENTS = [
   { key: "general", label: "General" },
@@ -24,6 +26,7 @@ const COMPONENTS = [
   { key: "benefits", label: "Benefits" },
   { key: "bestSellers", label: "BestSellers" },
   { key: "promo", label: "Promo CTA" },
+  { key: "footer", label: "Footer" },
 ];
 
 function setOverride(setConfig, key, value) {
@@ -353,6 +356,13 @@ export default function Customize() {
               <PromoEditor config={config} setConfig={setConfig} />
             </div>
           ) : null}
+
+          {active === "footer" ? (
+            <div className="border-t border-[var(--border)] pt-5">
+              <FooterEditor config={config} setConfig={setConfig} />
+            </div>
+          ) : null}
+
         </GlassCard>
 
         {/* RIGHT */}
@@ -382,6 +392,12 @@ export default function Customize() {
                 <PromoCtaSection data={config.copy.promo} preview />
               </div>
             </ComponentPreview>
+          ) : active === "footer" ? (
+            <ComponentPreview title={`Preview — ${activeLabel}`}>
+              <div className="bg-[var(--bg)]">
+                <Footer data={config.copy.footer} preview />
+              </div>
+            </ComponentPreview>
           ) : (
             <GlassCard className="p-6">
               <div className="text-sm font-semibold">Preview</div>
@@ -393,6 +409,7 @@ export default function Customize() {
               </div>
             </GlassCard>
           )}
+
 
           {/* Export / Import (debajo del preview) */}
           <GlassCard className="p-6 space-y-3">
