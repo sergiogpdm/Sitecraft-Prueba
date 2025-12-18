@@ -1,4 +1,5 @@
 import Button from "../ui/Button.jsx";
+import { HERO_VARIANTS } from "../sections/hero/heroVariants.js";
 
 export default function HeroEditor({ config, setConfig }) {
   const hero = config?.copy?.hero ?? {};
@@ -39,7 +40,7 @@ export default function HeroEditor({ config, setConfig }) {
     });
   };
 
-  // --- CTAs ---
+  // CTAs
   const primary =
     typeof hero.primaryCta === "string"
       ? { label: hero.primaryCta, type: "link", href: "", value: "", message: "", newTab: false }
@@ -56,7 +57,7 @@ export default function HeroEditor({ config, setConfig }) {
   const showVisual = (visual.enabled ?? true) !== false;
   const showQI = (quickInfo.enabled ?? true) !== false;
 
-  // --- Visual chips ---
+  // Visual chips
   const chips = Array.isArray(visual.chips) ? visual.chips : [];
 
   const setChip = (idx, patch) => {
@@ -92,7 +93,7 @@ export default function HeroEditor({ config, setConfig }) {
     reader.readAsDataURL(file);
   };
 
-  // --- QuickInfo items ---
+  // QuickInfo items
   const qiItems = Array.isArray(quickInfo.items) ? quickInfo.items : [];
 
   const setQIItem = (idx, patch) => {
@@ -129,7 +130,7 @@ export default function HeroEditor({ config, setConfig }) {
     });
   };
 
-  // --- Stats ---
+  // Stats
   const setStat = (idx, patch) => {
     setHero((prevHero) => {
       const stats = Array.isArray(prevHero.stats) ? [...prevHero.stats] : [];
@@ -165,12 +166,12 @@ export default function HeroEditor({ config, setConfig }) {
   };
 
   const CTATypeHelp = ({ type }) => {
-    const t = (type || "link").toLowerCase();
+    const t = String(type || "link").toLowerCase();
     const msg =
       t === "phone"
-        ? "Usa VALUE = número (ej: +34600111222). HREF se genera solo si lo dejas vacío."
+        ? "VALUE = número (ej: +34600111222). Si HREF está vacío, se genera tel: automáticamente."
         : t === "whatsapp"
-        ? "Usa VALUE = número y MESSAGE opcional. HREF se genera solo si lo dejas vacío."
+        ? "VALUE = número y MESSAGE opcional. Si HREF está vacío, se genera wa.me automáticamente."
         : t === "maps"
         ? "Usa HREF con el link de Google Maps (o se usa config.links.maps)."
         : "Usa HREF con tu enlace (interno / externo / #anchor).";
@@ -181,13 +182,21 @@ export default function HeroEditor({ config, setConfig }) {
     <div className="space-y-5">
       <h3 className="text-sm font-semibold">Hero</h3>
 
+      {/* ✅ Selector de diseño */}
+      <Select
+        label="Diseño del Hero"
+        value={hero.variant || "splitMediaCard"}
+        onChange={(v) => setHero({ variant: v })}
+        options={HERO_VARIANTS.map((v) => [v.id, v.label])}
+      />
+
       <Field label="Badge" value={hero.badge} onChange={(v) => setHero({ badge: v })} />
       <Field label="Título A" value={hero.titleA} onChange={(v) => setHero({ titleA: v })} />
       <Field label="Título Highlight" value={hero.titleHighlight} onChange={(v) => setHero({ titleHighlight: v })} />
       <Field label="Título B" value={hero.titleB} onChange={(v) => setHero({ titleB: v })} />
       <TextArea label="Subtítulo" value={hero.subtitle} onChange={(v) => setHero({ subtitle: v })} />
 
-      {/* CTAs */}
+      {/* CTA principal */}
       <div className="space-y-4 rounded-2xl border border-[var(--border)] bg-[var(--card)] p-4">
         <div className="text-sm font-semibold">CTA principal</div>
 
@@ -214,11 +223,7 @@ export default function HeroEditor({ config, setConfig }) {
         </div>
 
         {String(primary.type || "").toLowerCase() === "whatsapp" ? (
-          <TextArea
-            label="Mensaje WhatsApp (opcional)"
-            value={primary.message}
-            onChange={(v) => setPrimary({ message: v })}
-          />
+          <TextArea label="Mensaje WhatsApp (opcional)" value={primary.message} onChange={(v) => setPrimary({ message: v })} />
         ) : null}
 
         <label className="flex items-center gap-3 text-sm">
@@ -227,6 +232,7 @@ export default function HeroEditor({ config, setConfig }) {
         </label>
       </div>
 
+      {/* CTA secundaria */}
       <div className="space-y-4 rounded-2xl border border-[var(--border)] bg-[var(--card)] p-4">
         <div className="text-sm font-semibold">CTA secundaria</div>
 
@@ -253,11 +259,7 @@ export default function HeroEditor({ config, setConfig }) {
         </div>
 
         {String(secondary.type || "").toLowerCase() === "whatsapp" ? (
-          <TextArea
-            label="Mensaje WhatsApp (opcional)"
-            value={secondary.message}
-            onChange={(v) => setSecondary({ message: v })}
-          />
+          <TextArea label="Mensaje WhatsApp (opcional)" value={secondary.message} onChange={(v) => setSecondary({ message: v })} />
         ) : null}
 
         <label className="flex items-center gap-3 text-sm">
@@ -266,7 +268,7 @@ export default function HeroEditor({ config, setConfig }) {
         </label>
       </div>
 
-      {/* Preview visual */}
+      {/* Visual / Media */}
       <div className="space-y-4 rounded-2xl border border-[var(--border)] bg-[var(--card)] p-4">
         <div className="flex items-center justify-between">
           <div className="text-sm font-semibold">Media / Visual</div>
@@ -300,7 +302,6 @@ export default function HeroEditor({ config, setConfig }) {
               </div>
             </div>
 
-            {/* Chips */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <div className="text-sm font-semibold">Chips</div>
@@ -313,6 +314,7 @@ export default function HeroEditor({ config, setConfig }) {
                     <div className="text-xs text-[var(--muted)]">Chip #{idx + 1}</div>
                     <Button variant="default" className="px-3 py-2" onClick={() => removeChip(idx)}>✕</Button>
                   </div>
+
                   <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
                     <Field label="Label" value={c?.label ?? ""} onChange={(v) => setChip(idx, { label: v })} />
                     <Field label="Valor" value={c?.value ?? ""} onChange={(v) => setChip(idx, { value: v })} />
@@ -339,7 +341,7 @@ export default function HeroEditor({ config, setConfig }) {
         {showQI ? (
           <>
             <div className="text-xs text-[var(--muted)]">
-              Sugerencia icons: <code>clock</code>, <code>map</code>, <code>phone</code>, <code>whatsapp</code>, <code>truck</code>, <code>card</code>, <code>star</code>
+              Icon keys sugeridas: <code>clock</code>, <code>map</code>, <code>phone</code>, <code>whatsapp</code>, <code>truck</code>, <code>card</code>, <code>star</code>
             </div>
 
             <div className="flex items-center justify-between">
