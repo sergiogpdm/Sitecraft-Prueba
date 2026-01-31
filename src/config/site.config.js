@@ -1,21 +1,25 @@
 export const siteConfig = {
   "brand": {
-    "name": "Bufete de Extranjería · Almería",
-    "tagline": "Regularización de inmigrantes",
+    "name": "Despacho de Extranjería · Almería",
+    "tagline": "Regularización / Arraigo / Nacionalidad",
     "emojiLogo": "⚖️"
   },
   "links": {
-    "whatsapp": "https://wa.me/34000000000",
-    "maps": "https://www.google.com/maps"
+    "whatsapp": "https://wa.me/34TU_NUMERO_AQUI?text=Hola,%20quiero%20información%20sobre%20la%20regularización%20de%20este%20año.",
+    "instagram": "https://instagram.com/TU_CUENTA",
+    "facebook": "https://facebook.com/TU_PAGINA",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Avda.%20de%20la%20Estaci%C3%B3n%20N%C2%BA%206%209%C2%BA%201%C2%AA%2C%2004005%20Almer%C3%ADa%2C%20Espa%C3%B1a"
   },
   "contact": {
-    "phone": "+34 000 000 000",
-    "address": "Almería · España",
+    "phoneDisplay": "(+34) 914 185 069",
+    "phoneTel": "+34914185069",
+    "email": "info@jdimmigration.es",
+    "address": "Avda. de la Estación Nº 6 9º 1ª - 04005 – Almería",
     "hours": "L–V: 09:30–14:00 · 17:00–20:00"
   },
   "layout": {
     "showFloatingOrderButton": false,
-    "showNavbarCta": true
+    "showNavbarCta": false
   },
   "theme": {
     "preset": "mintNight",
@@ -48,16 +52,28 @@ export const siteConfig = {
           "enabled": true
         },
         {
-          "id": "benefits",
+          "id": "promoCta",
           "enabled": true
+        },
+        {
+          "id": "contactForm",
+          "enabled": true
+        },
+        {
+          "id": "benefits",
+          "enabled": false
+        },
+        {
+          "id": "gallery",
+          "enabled": false
+        },
+        {
+          "id": "bestSellers",
+          "enabled": false
         },
         {
           "id": "story",
-          "enabled": true
-        },
-        {
-          "id": "promoCta",
-          "enabled": true
+          "enabled": false
         },
         {
           "id": "countdown",
@@ -69,10 +85,6 @@ export const siteConfig = {
         },
         {
           "id": "itinerary",
-          "enabled": false
-        },
-        {
-          "id": "gallery",
           "enabled": false
         }
       ]
@@ -89,93 +101,90 @@ export const siteConfig = {
   },
   "copy": {
     "hero": {
-      "badge": "Extranjería · Nacionalidad · Arraigo",
-      "titleA": "Abogados de",
-      "titleHighlight": "Extranjería",
-      "titleB": "en Almería",
-      "subtitle": "Te ayudamos a regularizar tu situación en España. Estudiamos tu caso y te acompañamos durante todo el proceso, con un trato claro y cercano.",
+      "badge": "Extranjería · Regularización · Residencia",
+      "titleA": "Información sobre",
+      "titleHighlight": "Permisos de trabajo",
+      "titleB": "en España",
+      "subtitle": "Te ayudamos con la gestión relacionada con la regularización anunciada por el Gobierno. Revisión de requisitos, documentación y acompañamiento durante el trámite.",
       "ctaText": "Consultar por WhatsApp",
-      "ctaHref": "https://wa.me/34000000000",
-      "secondaryText": "Contacto",
+      "ctaHref": "https://wa.me/34TU_NUMERO_AQUI?text=Hola,%20quiero%20información%20sobre%20la%20regularización%20de%20este%20año.",
+      "secondaryText": "Ver contacto",
       "secondaryHref": "/contact",
-      "variant": "fullBleed"
+      "variant": "fullBleed",
+      "primaryCta": {
+        "label": "",
+        "type": "link",
+        "href": "",
+        "value": "",
+        "message": "",
+        "newTab": false
+      },
+      "visual": {
+        "imageSrc": "/demo/gallery/bufete.jpeg"
+      }
     },
     "benefits": {
       "enabled": true,
-      "kicker": "Servicios",
-      "title": "Especialistas en extranjería",
-      "subtitle": "Asesoramiento legal claro y adaptado a tu situación personal.",
+      "kicker": "Qué hacemos",
+      "title": "Te lo ponemos fácil",
+      "subtitle": "Un punto de contacto rápido y claro para resolver dudas y preparar tu trámite.",
       "items": [
         {
-          "title": "Arraigo social, laboral y familiar",
-          "text": "Estudio de requisitos, preparación y presentación del expediente."
+          "title": "Estudio gratuito inicial",
+          "text": "Te decimos si encajas y qué alternativa es más realista."
         },
         {
-          "title": "Renovaciones y modificaciones",
-          "text": "Renovación de permisos y cambios de situación administrativa."
+          "title": "Checklist de documentos",
+          "text": "Te guiamos con lo que necesitas según tu caso."
         },
         {
-          "title": "Reagrupación familiar",
-          "text": "Te ayudamos a traer a tu familia cumpliendo todos los requisitos legales."
-        },
-        {
-          "title": "Nacionalidad española",
-          "text": "Gestión completa del procedimiento y seguimiento del expediente."
-        },
-        {
-          "title": "Recursos y denegaciones",
-          "text": "Análisis de resoluciones y presentación de recursos."
-        }
-      ]
-    },
-    "story": {
-      "enabled": true,
-      "kicker": "Nuestro método",
-      "title": "Cómo trabajamos",
-      "desc": "Un proceso claro y transparente para que sepas en todo momento en qué punto está tu trámite.",
-      "items": [
-        {
-          "date": "1",
-          "title": "Estudio del caso",
-          "text": "Analizamos tu situación y te explicamos las opciones reales."
-        },
-        {
-          "date": "2",
-          "title": "Preparación de documentos",
-          "text": "Revisión completa para presentar el expediente correctamente."
-        },
-        {
-          "date": "3",
           "title": "Presentación y seguimiento",
-          "text": "Control de plazos, notificaciones y requerimientos."
+          "text": "Control de plazos, requerimientos y estado del expediente."
         },
         {
-          "date": "4",
-          "title": "Resolución",
-          "text": "Te guiamos en los siguientes pasos tras la resolución."
+          "title": "Recursos y subsanaciones",
+          "text": "Si hay incidencias, te ayudamos a solucionarlas."
         }
       ]
     },
     "promo": {
-      "kicker": "Consulta rápida",
-      "title": "Cuéntanos tu caso",
-      "subtitle": "Escríbenos por WhatsApp y te orientamos sobre tu situación.",
+      "kicker": "Consulta inmediata",
+      "title": "¿Tienes dudas sobre tu caso?",
+      "subtitle": "Escríbenos por WhatsApp y te orientamos sobre los pasos a seguir.",
       "ctaText": "Hablar por WhatsApp",
-      "ctaHref": "https://wa.me/34000000000"
+      "ctaHref": "https://wa.me/34TU_NUMERO_AQUI?text=Hola,%20quiero%20información%20sobre%20la%20regularización%20de%20este%20año."
+    },
+    "contactForm": {
+      "enabled": true,
+      "kicker": "Formulario",
+      "title": "Déjanos tu consulta",
+      "subtitle": "Si prefieres, envíanos un mensaje y te respondemos lo antes posible.",
+      "fields": {
+        "nameLabel": "Nombre",
+        "phoneLabel": "Teléfono",
+        "emailLabel": "Correo",
+        "messageLabel": "Tu consulta"
+      },
+      "submitText": "Enviar",
+      "successText": "¡Mensaje enviado! Te contactaremos pronto."
     },
     "footer": {
-      "title": "Bufete de Extranjería · Almería",
-      "subtitle": "Arraigo · Nacionalidad · Renovaciones",
+      "title": "Despacho de Extranjería · Almería",
+      "subtitle": "Regularización · Arraigo · Nacionalidad",
       "small": "© 2026"
     },
     "contactPage": {
       "title": "Contacto",
-      "subtitle": "Pide cita y te atenderemos lo antes posible.",
-      "addressTitle": "Almería · España",
-      "addressNote": "Atención con cita previa.",
-      "mapUrl": "https://www.google.com/maps",
+      "subtitle": "Pide cita o envíanos tu consulta. Atención con cita previa.",
+      "addressTitle": "Ubicación",
+      "addressNote": "Avda. de la Estación Nº 6 9º 1ª - 04005 – Almería",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=Avda.%20de%20la%20Estaci%C3%B3n%20N%C2%BA%206%209%C2%BA%201%C2%AA%2C%2004005%20Almer%C3%ADa%2C%20Espa%C3%B1a",
+      "phoneText": "Llamar",
+      "phoneTel": "+34914185069",
+      "emailText": "Escribir email",
+      "emailTo": "info@jdimmigration.es",
       "whatsappText": "Escribir por WhatsApp",
-      "whatsappUrl": "https://wa.me/34000000000"
+      "whatsappUrl": "https://wa.me/34TU_NUMERO_AQUI?text=Hola,%20quiero%20información%20sobre%20la%20regularización%20de%20este%20año."
     },
     "countdown": {
       "enabled": true,
@@ -229,6 +238,41 @@ export const siteConfig = {
         "",
         "",
         ""
+      ]
+    },
+    "story": {
+      "enabled": true,
+      "kicker": "Nuestra historia",
+      "title": "Cómo empezó todo",
+      "desc": "Un resumen rápido de nuestro camino hasta el gran día.",
+      "items": [
+        {
+          "date": "2022",
+          "title": "Nos conocimos",
+          "text": "Añade aquí un texto corto.",
+          "image": ""
+        },
+        {
+          "date": "2024",
+          "title": "Nuestro primer viaje",
+          "text": "Añade aquí un texto corto.",
+          "image": ""
+        },
+        {
+          "date": "2025",
+          "title": "La pedida",
+          "text": "Añade aquí un texto corto.",
+          "image": ""
+        }
+      ]
+    },
+    "gallery": {
+      "items": [
+        {
+          "imageSrc": "",
+          "alt": "Imagen",
+          "caption": ""
+        }
       ]
     }
   }

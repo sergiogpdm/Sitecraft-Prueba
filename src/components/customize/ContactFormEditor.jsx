@@ -20,6 +20,15 @@ export default function ContactFormEditor({ config, setConfig }) {
             phone: "+34 600 000 000",
             message: "Cuéntanos tu caso…",
           },
+
+          // ✅ NUEVO: destino por defecto (editable)
+          destination: {
+            type: "email", // "email" | "whatsapp"
+            emailTo: "",
+            whatsappTo: "",
+            subject: "Nueva consulta desde la web",
+          },
+
           ...(p.copy?.contactForm || {}),
           [key]: value,
         },
@@ -30,8 +39,32 @@ export default function ContactFormEditor({ config, setConfig }) {
   const setNested = (path, value) => {
     setConfig((p) => {
       const cur = p.copy?.contactForm || {};
-      const next = structuredClone ? structuredClone(cur) : JSON.parse(JSON.stringify(cur));
-      // path ej "labels.name"
+
+      // ✅ aseguramos defaults (por si el config anterior no tiene destination)
+      const seeded = {
+        variant: "card",
+        title: "Pide información",
+        subtitle: "Rellena el formulario y te contestamos lo antes posible.",
+        submitText: "Enviar",
+        minMessageLength: 10,
+        labels: { name: "Nombre", phone: "Teléfono", message: "Consulta" },
+        placeholders: {
+          name: "Tu nombre",
+          phone: "+34 600 000 000",
+          message: "Cuéntanos tu caso…",
+        },
+        destination: {
+          type: "email",
+          emailTo: "",
+          whatsappTo: "",
+          subject: "Nueva consulta desde la web",
+        },
+        ...cur,
+      };
+
+      const next = structuredClone ? structuredClone(seeded) : JSON.parse(JSON.stringify(seeded));
+
+      // path ej "labels.name" o "destination.emailTo"
       const parts = path.split(".");
       let obj = next;
       for (let i = 0; i < parts.length - 1; i++) {
@@ -40,9 +73,12 @@ export default function ContactFormEditor({ config, setConfig }) {
         obj = obj[k];
       }
       obj[parts[parts.length - 1]] = value;
+
       return { ...p, copy: { ...p.copy, contactForm: next } };
     });
   };
+
+  const destType = data.destination?.type || "email";
 
   return (
     <div className="space-y-4">
@@ -71,15 +107,83 @@ export default function ContactFormEditor({ config, setConfig }) {
         onChange={(v) => setField("minMessageLength", Number(v || 0))}
       />
 
+      {/* ✅ NUEVO: ENVÍO */}
+      <div className="mt-2 text-sm font-semibold">Envío</div>
+
+      <label className="block">
+        <div className="text-xs text-zinc-400">Canal</div>
+        <select
+          className="mt-2 w-full rounded-2xl border border-[var(--border)] bg-[var(--card)] px-3 py-2 text-sm outline-none"
+          value={destType}
+          onChange={(e) => setNested("destination.type", e.target.value)}
+        >
+          <option value="email">Email</option>
+          <option value="whatsapp">WhatsApp</option>
+        </select>
+      </label>
+
+      {destType === "email" ? (
+        <>
+          <TextField
+            label="Email destino (mailto)"
+            value={data.destination?.emailTo ?? ""}
+            onChange={(v) => setNested("destination.emailTo", v)}
+          />
+          <TextField
+            label="Asunto (email)"
+            value={data.destination?.subject ?? "Nueva consulta desde la web"}
+            onChange={(v) => setNested("destination.subject", v)}
+          />
+          <div className="text-xs text-[var(--muted)]">
+            Tip: el envío por email abre el correo del usuario (mailto).
+          </div>
+        </>
+      ) : (
+        <>
+          <TextField
+            label="WhatsApp destino (solo dígitos, ej 34600111222)"
+            value={data.destination?.whatsappTo ?? ""}
+            onChange={(v) => setNested("destination.whatsappTo", v)}
+          />
+          <div className="text-xs text-[var(--muted)]">
+            Tip: usa prefijo país sin <b>+</b> y sin espacios. Ej: <code>34600111222</code>
+          </div>
+        </>
+      )}
+
       <div className="mt-2 text-sm font-semibold">Labels</div>
-      <TextField label="Label nombre" value={data.labels?.name ?? ""} onChange={(v) => setNested("labels.name", v)} />
-      <TextField label="Label teléfono" value={data.labels?.phone ?? ""} onChange={(v) => setNested("labels.phone", v)} />
-      <TextField label="Label consulta" value={data.labels?.message ?? ""} onChange={(v) => setNested("labels.message", v)} />
+      <TextField
+        label="Label nombre"
+        value={data.labels?.name ?? ""}
+        onChange={(v) => setNested("labels.name", v)}
+      />
+      <TextField
+        label="Label teléfono"
+        value={data.labels?.phone ?? ""}
+        onChange={(v) => setNested("labels.phone", v)}
+      />
+      <TextField
+        label="Label consulta"
+        value={data.labels?.message ?? ""}
+        onChange={(v) => setNested("labels.message", v)}
+      />
 
       <div className="mt-2 text-sm font-semibold">Placeholders</div>
-      <TextField label="PH nombre" value={data.placeholders?.name ?? ""} onChange={(v) => setNested("placeholders.name", v)} />
-      <TextField label="PH teléfono" value={data.placeholders?.phone ?? ""} onChange={(v) => setNested("placeholders.phone", v)} />
-      <TextField label="PH consulta" value={data.placeholders?.message ?? ""} onChange={(v) => setNested("placeholders.message", v)} />
+      <TextField
+        label="PH nombre"
+        value={data.placeholders?.name ?? ""}
+        onChange={(v) => setNested("placeholders.name", v)}
+      />
+      <TextField
+        label="PH teléfono"
+        value={data.placeholders?.phone ?? ""}
+        onChange={(v) => setNested("placeholders.phone", v)}
+      />
+      <TextField
+        label="PH consulta"
+        value={data.placeholders?.message ?? ""}
+        onChange={(v) => setNested("placeholders.message", v)}
+      />
 
       <div className="pt-2">
         <Button

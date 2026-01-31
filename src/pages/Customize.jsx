@@ -251,7 +251,14 @@ export default function Customize() {
           phone: "+34 600 000 000",
           message: "Cuéntanos tu caso…",
         },
+        destination: {
+          type: "email",
+          emailTo: "tucorreo@dominio.com",
+          whatsappTo: "34600111222",
+          subject: "Nueva consulta desde la web",
+        },
       });
+
 
 
       ensureHomeSection(next, "hero", true);
