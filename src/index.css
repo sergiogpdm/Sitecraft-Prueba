@@ -9,3 +9,28 @@ html, body, #root {
   background: var(--bg);
   color: var(--text);
 }
+/* ==== FIXES GOOGLE TRANSLATE ==== */
+
+/* Oculta la barra superior de Google */
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+
+body {
+  top: 0px !important;
+}
+
+/* Oculta tooltips raros */
+.goog-tooltip {
+  display: none !important;
+}
+.goog-tooltip:hover {
+  display: none !important;
+}
+
+/* Evita resaltado amarillo feo */
+.goog-text-highlight {
+  background: none !important;
+  box-shadow: none !important;
+}
+

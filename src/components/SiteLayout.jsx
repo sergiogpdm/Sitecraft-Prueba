@@ -6,6 +6,7 @@ import FloatingOrderButton from "./FloatingOrderButton.jsx";
 import { useSiteConfig } from "../context/SiteConfigContext.jsx";
 import { presets } from "../config/presets.js";
 import { googleFonts } from "../config/fonts.js";
+import LanguageToggle from "./LanguageToggle";
 
 function applyVars(el, vars) {
   if (!el || !vars) return;
@@ -104,11 +105,19 @@ export default function SiteLayout() {
 
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]" ref={rootRef}>
+      {/* Botón de idioma (fijo arriba a la derecha) */}
+      <div className="fixed right-4 top-4 z-[9999]">
+        <LanguageToggle />
+      </div>
+
       <Navbar />
+
       <main className="pt-16">
         <Outlet />
       </main>
+
       <Footer />
+
       {config.layout.showFloatingOrderButton ? <FloatingOrderButton /> : null}
     </div>
   );
