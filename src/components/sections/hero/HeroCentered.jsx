@@ -50,7 +50,7 @@ export default function HeroCentered({ data, preview = false }) {
       <Container className="relative">
         <div className="mx-auto max-w-3xl text-center">
           {badge ? (
-            <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--card)] px-4 py-2 text-xs text-[var(--muted)]">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--card)] px-4 py-2 text-xs text-[color:var(--heroMuted,var(--muted))]">
               <span
                 className="h-1.5 w-1.5 rounded-full"
                 style={{ background: "linear-gradient(90deg,var(--accentA),var(--accentB))" }}
@@ -78,7 +78,7 @@ export default function HeroCentered({ data, preview = false }) {
           </motion.h1>
 
           {subtitle ? (
-            <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-[var(--muted)] sm:text-base">
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-[color:var(--heroMuted,var(--muted))] sm:text-base">
               {subtitle}
             </p>
           ) : null}
@@ -107,8 +107,8 @@ export default function HeroCentered({ data, preview = false }) {
                 >
                   <div className="mt-[2px] text-sm">{iconFor(it?.icon)}</div>
                   <div className="min-w-0">
-                    <div className="text-xs text-[var(--muted)]">{it?.label ?? ""}</div>
-                    <div className="text-sm font-semibold text-[var(--text)] truncate">
+                    <div className="text-xs text-[color:var(--heroMuted,var(--muted))]">{it?.label ?? ""}</div>
+                    <div className="text-sm font-semibold text-[color:var(--heroText,var(--text))] truncate">
                       {it?.value ?? ""}
                     </div>
                   </div>
@@ -125,32 +125,31 @@ export default function HeroCentered({ data, preview = false }) {
                   key={`${s?.title ?? "stat"}-${idx}`}
                   className="rounded-2xl border border-[var(--border)] bg-[var(--card)] px-4 py-3 text-left"
                 >
-                  <div className="text-sm font-semibold text-[var(--text)]">{s?.title ?? "—"}</div>
-                  <div className="mt-1 text-xs text-[var(--muted)]">{s?.desc ?? ""}</div>
+                  <div className="text-sm font-semibold text-[color:var(--heroText,var(--text))]">{s?.title ?? "—"}</div>
+                  <div className="mt-1 text-xs text-[color:var(--heroMuted,var(--muted))]">{s?.desc ?? ""}</div>
                 </div>
               ))}
             </div>
           ) : null}
 
           {showVisual ? (
-  <div className="mt-8">
-    <GlassCard className="p-5 sm:p-6 text-left">
-      <div className="overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card)]">
-        {visual.imageSrc ? (
-          <img
-            src={visual.imageSrc}
-            alt={visual.imageAlt || "Imagen"}
-            className="h-64 w-full object-cover"
-            loading="lazy"
-          />
-        ) : (
-          <div className="h-64 w-full" />
-        )}
-      </div>
-    </GlassCard>
-  </div>
-) : null}
-
+            <div className="mt-8">
+              <GlassCard className="p-5 sm:p-6 text-left">
+                <div className="overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card)]">
+                  {visual.imageSrc ? (
+                    <img
+                      src={visual.imageSrc}
+                      alt={visual.imageAlt || "Imagen"}
+                      className="h-64 w-full object-cover"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="h-64 w-full" />
+                  )}
+                </div>
+              </GlassCard>
+            </div>
+          ) : null}
         </div>
       </Container>
     </section>

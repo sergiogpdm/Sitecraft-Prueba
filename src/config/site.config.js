@@ -40,7 +40,9 @@ export const siteConfig = {
       "--shadowBlur": "40px",
       "--shadowOpacity": "0.08",
       "--fontDisplay": "Inter",
-      "--fontBody": "Inter"
+      "--fontBody": "Inter",
+      "--glowA": "#56a6f0",
+      "--glowB": "#c4d0ee"
     }
   },
   "pages": {
@@ -110,7 +112,8 @@ export const siteConfig = {
         "imageSrc": ""
       },
       "background": {
-        "style": "bars"
+        "style": "corners",
+        "pattern": true
       }
     },
     "benefits": {

@@ -7,5 +7,19 @@ export default function HeroSection({ data, preview = false }) {
   if (!hero) return null;
 
   const Variant = getHeroVariantComponent(hero.variant);
-  return <Variant data={hero} preview={preview} />;
+
+  const heroText = hero?.textColor || "";
+  const heroMuted = hero?.mutedColor || "";
+
+  return (
+    <div
+      style={{
+        "--heroText": heroText,
+        "--heroMuted": heroMuted,
+      }}
+      className="text-[color:var(--heroText,var(--text))]"
+    >
+      <Variant data={hero} preview={preview} />
+    </div>
+  );
 }

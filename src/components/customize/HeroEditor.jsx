@@ -1,6 +1,7 @@
 import Button from "../ui/Button.jsx";
 import { HERO_VARIANTS } from "../sections/hero/heroVariants.js";
 
+
 export default function HeroEditor({ config, setConfig }) {
   const hero = config?.copy?.hero ?? {};
   const visual = hero.visual || {};
@@ -236,6 +237,29 @@ export default function HeroEditor({ config, setConfig }) {
       <Field label="Título Highlight" value={hero.titleHighlight} onChange={(v) => setHero({ titleHighlight: v })} />
       <Field label="Título B" value={hero.titleB} onChange={(v) => setHero({ titleB: v })} />
       <TextArea label="Subtítulo" value={hero.subtitle} onChange={(v) => setHero({ subtitle: v })} />
+      
+      {/* Hero text colors */}
+      <div className="grid grid-cols-2 gap-3">
+        <div>
+          <label className="mb-1 block text-xs font-medium">Hero text color</label>
+          <input
+            type="color"
+            value={hero?.textColor || "#ff0000"}
+            onChange={(e) => setHero((prev) => ({ ...prev, textColor: e.target.value }))}
+            className="h-10 w-full cursor-pointer rounded-lg border border-[var(--border)] bg-[var(--card)]"
+          />
+        </div>
+
+        <div>
+          <label className="mb-1 block text-xs font-medium">Hero muted text</label>
+          <input
+            type="color"
+            value={hero?.mutedColor || "#666666"}
+            onChange={(e) => setHero((prev) => ({ ...prev, mutedColor: e.target.value }))}
+            className="h-10 w-full cursor-pointer rounded-lg border border-[var(--border)] bg-[var(--card)]"
+          />
+        </div>
+      </div>
 
       {/* CTA principal */}
       <div className="space-y-4 rounded-2xl border border-[var(--border)] bg-[var(--card)] p-4">
