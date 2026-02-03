@@ -1,5 +1,5 @@
-import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 import { Menu, X } from "lucide-react";
 import Container from "./Container.jsx";
@@ -60,6 +60,16 @@ export default function Navbar() {
     setOpen(false);
   }, [location.pathname, location.hash]);
 
+  // Bloquea scroll del body con el menú móvil abierto
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
   const homeSections = config?.pages?.home?.sections || [];
 
   const sectionNav = useMemo(() => {
@@ -80,8 +90,6 @@ export default function Navbar() {
     // Si ya estás en home, solo sube
     if (location.pathname === "/") {
       scrollToTop();
-      // Limpia hash si quieres (opcional):
-      // if (location.hash) navigate({ pathname: "/", hash: "" }, { replace: true });
       return;
     }
 
@@ -114,23 +122,30 @@ export default function Navbar() {
     scrolled ? "text-zinc-300 hover:text-white" : "text-zinc-700 hover:text-black",
   ].join(" ");
 
+  /**
+   * ✅ LOGO FIX:
+   * - la imagen ahora NO se sale:
+   *   - block: evita gap raro
+   *   - max-w: limita ancho
+   *   - max-h-full: respeta alto del contenedor
+   * - el contenedor del logo baja a h-11 para encajar mejor en navbar
+   */
   const logoBox = (
-  <span className="flex items-center h-12 w-auto px-3 rounded-xl border border-[var(--border)] bg-[var(--card)] overflow-hidden">
-    {brand.logoImage ? (
-      <img
-        src={brand.logoImage}
-        alt={brand.name || "Logo"}
-        className="h-full w-auto object-contain"
-        loading="eager"
-      />
-    ) : (
-      <span className="grid h-12 w-12 place-items-center" aria-hidden="true">
-        {brand.emojiLogo}
-      </span>
-    )}
-  </span>
-);
-
+    <span className="flex items-center h-11 w-auto px-3 rounded-xl border border-[var(--border)] bg-[var(--card)] overflow-hidden">
+      {brand.logoImage ? (
+        <img
+          src={brand.logoImage}
+          alt={brand.name || "Logo"}
+          className="block h-full max-h-full w-auto max-w-[140px] object-contain"
+          loading="eager"
+        />
+      ) : (
+        <span className="grid h-11 w-11 place-items-center" aria-hidden="true">
+          {brand.emojiLogo}
+        </span>
+      )}
+    </span>
+  );
 
   return (
     <motion.header
@@ -144,9 +159,8 @@ export default function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.35, ease: "easeOut" }}
     >
-      {/* Logo izquierda (fuera del flujo) */}
-      <div className="absolute left-4 top-1/2 -translate-y-1/2 z-10">
-        {/* Usamos button para controlar subir arriba del todo */}
+      {/* Logo izquierda (desktop, fuera del flujo) */}
+      <div className="absolute left-4 top-1/2 -translate-y-1/2 z-10 hidden md:block">
         <button
           type="button"
           onClick={goHomeTop}
@@ -155,25 +169,17 @@ export default function Navbar() {
         >
           {logoBox}
           <div className="leading-tight">
-            <div
-              className={`text-sm font-semibold transition-colors ${
-                scrolled ? "text-white" : "text-black"
-              }`}
-            >
+            <div className={`text-sm font-semibold transition-colors ${scrolled ? "text-white" : "text-black"}`}>
               {brand.name}
             </div>
-            <div
-              className={`text-[11px] transition-colors -mt-0.5 ${
-                scrolled ? "text-zinc-300" : "text-zinc-600"
-              }`}
-            >
+            <div className={`text-[11px] transition-colors -mt-0.5 ${scrolled ? "text-zinc-300" : "text-zinc-600"}`}>
               {brand.tagline}
             </div>
           </div>
         </button>
       </div>
 
-      {/* CTA derecha */}
+      {/* CTA derecha (desktop) */}
       <div className="absolute right-4 top-1/2 -translate-y-1/2 hidden md:block z-10">
         {config?.layout?.showNavbarCta && (
           <Button as="a" href={config?.links?.whatsapp} target="_blank" rel="noreferrer" variant="primary">
@@ -182,10 +188,61 @@ export default function Navbar() {
         )}
       </div>
 
-      {/* NAV CENTRADO REAL */}
+      
+
+      {/* NAV + HEADER MOBILE */}
       <div className="h-16 relative">
+        {/* ✅ HEADER MOBILE NUEVO (más bonito y sin choques)
+            - Logo y título a la izquierda
+            - Botón menú a la derecha
+            - Sin absolutos => no se pisan elementos
+        */}
+        <div className="md:hidden h-full">
+          <Container className="h-full">
+            <div className="h-full flex items-center justify-between gap-3">
+              <button
+                type="button"
+                onClick={goHomeTop}
+                className="inline-flex items-center gap-2 text-left min-w-0"
+                aria-label="Ir al inicio"
+              >
+                {logoBox}
+                <div className="leading-tight min-w-0">
+                  <div
+                    className={`text-sm font-semibold transition-colors truncate ${
+                      scrolled ? "text-white" : "text-black"
+                    }`}
+                    title={brand.name}
+                  >
+                    {brand.name}
+                  </div>
+                  <div
+                    className={`text-[11px] transition-colors -mt-0.5 truncate ${
+                      scrolled ? "text-zinc-300" : "text-zinc-600"
+                    }`}
+                    title={brand.tagline}
+                  >
+                    {brand.tagline}
+                  </div>
+                </div>
+              </button>
+
+              <button
+                className="shrink-0 rounded-xl border border-[var(--border)] bg-[var(--card)] p-2"
+                onClick={() => setOpen((v) => !v)}
+                aria-label={open ? "Cerrar menú" : "Abrir menú"}
+                aria-expanded={open}
+                aria-controls="mobile-nav"
+                type="button"
+              >
+                {open ? <X size={18} /> : <Menu size={18} />}
+              </button>
+            </div>
+          </Container>
+        </div>
+
+        {/* NAV CENTRADO REAL (desktop) */}
         <nav className="hidden md:flex items-center gap-7 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          {/* Inicio ahora sube arriba siempre */}
           <button type="button" onClick={goHomeTop} className={navLink(scrolled)({ isActive: location.pathname === "/" })}>
             Inicio
           </button>
@@ -209,64 +266,173 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Botón móvil */}
+        {/* Botón móvil (se mantiene para accesibilidad pero lo ocultamos porque ya está arriba) */}
         <button
-          className="md:hidden absolute right-4 top-1/2 -translate-y-1/2 rounded-xl border border-[var(--border)] bg-[var(--card)] p-2"
+          className="hidden md:hidden"
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Cerrar menú" : "Abrir menú"}
           aria-expanded={open}
           aria-controls="mobile-nav"
           type="button"
-        >
-          {open ? <X size={18} /> : <Menu size={18} />}
-        </button>
+        />
       </div>
 
-      {/* Mobile menu */}
-      {open && (
-        <div
-          id="mobile-nav"
-          className={`${scrolled ? "bg-zinc-950/80" : "bg-white/90"} backdrop-blur-xl border-t border-[var(--border)] md:hidden`}
-        >
-          <Container className="py-4 flex flex-col gap-3">
-            {/* Inicio también sube arriba */}
-            <button type="button" onClick={goHomeTop} className={navLink(scrolled)({ isActive: location.pathname === "/" })}>
-              Inicio
-            </button>
+      {/* ✅ MENÚ MÓVIL NUEVO: drawer lateral (mucho más pro que dropdown) */}
+      <AnimatePresence>
+        {open && (
+          <>
+            {/* Overlay */}
+            <motion.button
+              type="button"
+              aria-label="Cerrar menú"
+              onClick={() => setOpen(false)}
+              className="fixed inset-0 z-[60] bg-black/40 md:hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
 
-            {config?.pages?.menu?.enabled && (
-              <NavLink onClick={() => setOpen(false)} to="/carta" className={navLink(scrolled)}>
-                Carta
-              </NavLink>
-            )}
-            {config?.pages?.contact?.enabled && (
-              <NavLink onClick={() => setOpen(false)} to="/contacto" className={navLink(scrolled)}>
-                Contacto
-              </NavLink>
-            )}
+            {/* Drawer */}
+            <motion.aside
+              id="mobile-nav"
+              className={[
+                "fixed top-0 right-0 z-[70] h-dvh w-[84vw] max-w-[360px] md:hidden",
+                "border-l border-[var(--border)]",
+                scrolled ? "bg-zinc-950/95" : "bg-white/95",
+                "backdrop-blur-xl",
+              ].join(" ")}
+              initial={{ x: 360 }}
+              animate={{ x: 0 }}
+              exit={{ x: 360 }}
+              transition={{ type: "tween", duration: 0.25 }}
+            >
+              <div className="h-full flex flex-col">
+                {/* Header drawer */}
+                <div className="px-4 py-4 flex items-center justify-between border-b border-[var(--border)]">
+                  <div className="flex items-center gap-2 min-w-0">
+                    {logoBox}
+                    <div className="min-w-0">
+                      <div className={`text-sm font-semibold truncate ${scrolled ? "text-white" : "text-black"}`}>
+                        {brand.name}
+                      </div>
+                      <div className={`text-[11px] -mt-0.5 truncate ${scrolled ? "text-zinc-300" : "text-zinc-600"}`}>
+                        Menú
+                      </div>
+                    </div>
+                  </div>
 
-            {sectionNav.length > 0 && (
-              <div className="pt-2 border-t border-[var(--border)]">
-                <div className={`text-xs uppercase mb-2 ${scrolled ? "text-zinc-300" : "text-zinc-600"}`}>
-                  Secciones
-                </div>
-                {sectionNav.map((s) => (
                   <button
-                    key={s.id}
-                    onClick={() => goToSection(s.hash)}
-                    className={`text-left text-sm transition ${
-                      scrolled ? "text-zinc-300 hover:text-white" : "text-zinc-700 hover:text-black"
-                    }`}
+                    className="shrink-0 rounded-xl border border-[var(--border)] bg-[var(--card)] p-2"
+                    onClick={() => setOpen(false)}
+                    aria-label="Cerrar menú"
                     type="button"
                   >
-                    {s.label}
+                    <X size={18} />
                   </button>
-                ))}
+                </div>
+
+                {/* Body drawer (scroll) */}
+                <div className="flex-1 overflow-y-auto px-4 py-4">
+                  {/* Idiomas en móvil (aquí no tapan nada) */}
+                  <div className="pb-4 border-b border-[var(--border)]">
+                    <div className={`text-xs uppercase mb-2 ${scrolled ? "text-zinc-300" : "text-zinc-600"}`}>
+                      Idioma
+                    </div>
+                    
+                  </div>
+
+                  <div className="pt-4 flex flex-col gap-2">
+                    {/* Botones grandes (mejor UX) */}
+                    <button
+                      type="button"
+                      onClick={goHomeTop}
+                      className={[
+                        "w-full text-left rounded-xl px-4 py-3 border border-[var(--border)]",
+                        scrolled
+                          ? "text-white bg-white/5 hover:bg-white/10"
+                          : "text-black bg-black/5 hover:bg-black/10",
+                      ].join(" ")}
+                    >
+                      Inicio
+                    </button>
+
+                    {config?.pages?.menu?.enabled && (
+                      <NavLink
+                        onClick={() => setOpen(false)}
+                        to="/carta"
+                        className={[
+                          "rounded-xl px-4 py-3 border border-[var(--border)]",
+                          scrolled
+                            ? "text-white bg-white/5 hover:bg-white/10"
+                            : "text-black bg-black/5 hover:bg-black/10",
+                        ].join(" ")}
+                      >
+                        Carta
+                      </NavLink>
+                    )}
+
+                    {config?.pages?.contact?.enabled && (
+                      <NavLink
+                        onClick={() => setOpen(false)}
+                        to="/contacto"
+                        className={[
+                          "rounded-xl px-4 py-3 border border-[var(--border)]",
+                          scrolled
+                            ? "text-white bg-white/5 hover:bg-white/10"
+                            : "text-black bg-black/5 hover:bg-black/10",
+                        ].join(" ")}
+                      >
+                        Contacto
+                      </NavLink>
+                    )}
+
+                    {sectionNav.length > 0 && (
+                      <div className="pt-4">
+                        <div className={`text-xs uppercase mb-2 ${scrolled ? "text-zinc-300" : "text-zinc-600"}`}>
+                          Secciones
+                        </div>
+                        <div className="flex flex-col gap-2">
+                          {sectionNav.map((s) => (
+                            <button
+                              key={s.id}
+                              onClick={() => goToSection(s.hash)}
+                              className={[
+                                "w-full text-left rounded-xl px-4 py-3 border border-[var(--border)]",
+                                scrolled
+                                  ? "text-white bg-white/5 hover:bg-white/10"
+                                  : "text-black bg-black/5 hover:bg-black/10",
+                              ].join(" ")}
+                              type="button"
+                            >
+                              {s.label}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Footer drawer (CTA móvil opcional) */}
+                {config?.layout?.showNavbarCta && (
+                  <div className="px-4 py-4 border-t border-[var(--border)]">
+                    <Button
+                      as="a"
+                      href={config?.links?.whatsapp}
+                      target="_blank"
+                      rel="noreferrer"
+                      variant="primary"
+                      className="w-full"
+                    >
+                      Pedir por WhatsApp
+                    </Button>
+                  </div>
+                )}
               </div>
-            )}
-          </Container>
-        </div>
-      )}
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }
