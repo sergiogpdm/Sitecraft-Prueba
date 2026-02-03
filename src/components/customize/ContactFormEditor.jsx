@@ -14,16 +14,18 @@ export default function ContactFormEditor({ config, setConfig }) {
           subtitle: "Rellena el formulario y te contestamos lo antes posible.",
           submitText: "Enviar",
           minMessageLength: 10,
+
+          // ✅ NUEVO
+          fields: { name: true, phone: true, message: true },
+
           labels: { name: "Nombre", phone: "Teléfono", message: "Consulta" },
           placeholders: {
             name: "Tu nombre",
             phone: "+34 600 000 000",
             message: "Cuéntanos tu caso…",
           },
-
-          // ✅ NUEVO: destino por defecto (editable)
           destination: {
-            type: "email", // "email" | "whatsapp"
+            type: "email",
             emailTo: "",
             whatsappTo: "",
             subject: "Nueva consulta desde la web",
@@ -40,13 +42,16 @@ export default function ContactFormEditor({ config, setConfig }) {
     setConfig((p) => {
       const cur = p.copy?.contactForm || {};
 
-      // ✅ aseguramos defaults (por si el config anterior no tiene destination)
       const seeded = {
         variant: "card",
         title: "Pide información",
         subtitle: "Rellena el formulario y te contestamos lo antes posible.",
         submitText: "Enviar",
         minMessageLength: 10,
+
+        // ✅ NUEVO
+        fields: { name: true, phone: true, message: true },
+
         labels: { name: "Nombre", phone: "Teléfono", message: "Consulta" },
         placeholders: {
           name: "Tu nombre",
@@ -64,7 +69,6 @@ export default function ContactFormEditor({ config, setConfig }) {
 
       const next = structuredClone ? structuredClone(seeded) : JSON.parse(JSON.stringify(seeded));
 
-      // path ej "labels.name" o "destination.emailTo"
       const parts = path.split(".");
       let obj = next;
       for (let i = 0; i < parts.length - 1; i++) {
@@ -79,6 +83,7 @@ export default function ContactFormEditor({ config, setConfig }) {
   };
 
   const destType = data.destination?.type || "email";
+  const showMessage = data.fields?.message ?? true;
 
   return (
     <div className="space-y-4">
@@ -101,13 +106,31 @@ export default function ContactFormEditor({ config, setConfig }) {
       <TextField label="Subtítulo" value={data.subtitle ?? ""} onChange={(v) => setField("subtitle", v)} />
       <TextField label="Texto botón" value={data.submitText ?? ""} onChange={(v) => setField("submitText", v)} />
 
-      <NumberField
-        label="Mínimo caracteres en consulta"
-        value={data.minMessageLength ?? 10}
-        onChange={(v) => setField("minMessageLength", Number(v || 0))}
-      />
+      {/* ✅ TOGGLE CONSULTA */}
+      <label className="block">
+        <div className="text-xs text-zinc-400">Mostrar campo “Consulta”</div>
+        <div className="mt-2 flex items-center gap-3">
+          <input
+            type="checkbox"
+            className="h-4 w-4"
+            checked={showMessage}
+            onChange={(e) => setNested("fields.message", e.target.checked)}
+          />
+          <span className="text-sm text-[var(--muted)]">
+            Si lo desactivas, no se mostrará ni será obligatorio.
+          </span>
+        </div>
+      </label>
 
-      {/* ✅ NUEVO: ENVÍO */}
+      {/* Solo si existe consulta */}
+      {showMessage && (
+        <NumberField
+          label="Mínimo caracteres en consulta"
+          value={data.minMessageLength ?? 10}
+          onChange={(v) => setField("minMessageLength", Number(v || 0))}
+        />
+      )}
+
       <div className="mt-2 text-sm font-semibold">Envío</div>
 
       <label className="block">
@@ -125,65 +148,37 @@ export default function ContactFormEditor({ config, setConfig }) {
       {destType === "email" ? (
         <>
           <TextField
-            label="Email destino (mailto)"
+            label="Email destino"
             value={data.destination?.emailTo ?? ""}
             onChange={(v) => setNested("destination.emailTo", v)}
           />
           <TextField
-            label="Asunto (email)"
-            value={data.destination?.subject ?? "Nueva consulta desde la web"}
+            label="Asunto"
+            value={data.destination?.subject ?? ""}
             onChange={(v) => setNested("destination.subject", v)}
           />
-          <div className="text-xs text-[var(--muted)]">
-            Tip: el envío por email abre el correo del usuario (mailto).
-          </div>
         </>
       ) : (
-        <>
-          <TextField
-            label="WhatsApp destino (solo dígitos, ej 34600111222)"
-            value={data.destination?.whatsappTo ?? ""}
-            onChange={(v) => setNested("destination.whatsappTo", v)}
-          />
-          <div className="text-xs text-[var(--muted)]">
-            Tip: usa prefijo país sin <b>+</b> y sin espacios. Ej: <code>34600111222</code>
-          </div>
-        </>
+        <TextField
+          label="WhatsApp destino"
+          value={data.destination?.whatsappTo ?? ""}
+          onChange={(v) => setNested("destination.whatsappTo", v)}
+        />
       )}
 
       <div className="mt-2 text-sm font-semibold">Labels</div>
-      <TextField
-        label="Label nombre"
-        value={data.labels?.name ?? ""}
-        onChange={(v) => setNested("labels.name", v)}
-      />
-      <TextField
-        label="Label teléfono"
-        value={data.labels?.phone ?? ""}
-        onChange={(v) => setNested("labels.phone", v)}
-      />
-      <TextField
-        label="Label consulta"
-        value={data.labels?.message ?? ""}
-        onChange={(v) => setNested("labels.message", v)}
-      />
+      <TextField label="Label nombre" value={data.labels?.name ?? ""} onChange={(v) => setNested("labels.name", v)} />
+      <TextField label="Label teléfono" value={data.labels?.phone ?? ""} onChange={(v) => setNested("labels.phone", v)} />
+      {showMessage && (
+        <TextField label="Label consulta" value={data.labels?.message ?? ""} onChange={(v) => setNested("labels.message", v)} />
+      )}
 
       <div className="mt-2 text-sm font-semibold">Placeholders</div>
-      <TextField
-        label="PH nombre"
-        value={data.placeholders?.name ?? ""}
-        onChange={(v) => setNested("placeholders.name", v)}
-      />
-      <TextField
-        label="PH teléfono"
-        value={data.placeholders?.phone ?? ""}
-        onChange={(v) => setNested("placeholders.phone", v)}
-      />
-      <TextField
-        label="PH consulta"
-        value={data.placeholders?.message ?? ""}
-        onChange={(v) => setNested("placeholders.message", v)}
-      />
+      <TextField label="PH nombre" value={data.placeholders?.name ?? ""} onChange={(v) => setNested("placeholders.name", v)} />
+      <TextField label="PH teléfono" value={data.placeholders?.phone ?? ""} onChange={(v) => setNested("placeholders.phone", v)} />
+      {showMessage && (
+        <TextField label="PH consulta" value={data.placeholders?.message ?? ""} onChange={(v) => setNested("placeholders.message", v)} />
+      )}
 
       <div className="pt-2">
         <Button
@@ -202,7 +197,7 @@ export default function ContactFormEditor({ config, setConfig }) {
   );
 }
 
-/* helpers (igual estilo que Customize) */
+/* helpers */
 function TextField({ label, value, onChange }) {
   return (
     <label className="block">

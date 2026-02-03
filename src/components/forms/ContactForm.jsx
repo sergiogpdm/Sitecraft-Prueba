@@ -25,7 +25,10 @@ export default function ContactForm({
     phone: "+34 600 000 000",
     message: "Cuéntanos tu caso o lo que necesitas…",
   },
+
   minMessageLength = 10,
+
+  fields = { name: true, phone: true, message: true },
 
   destination = {
     type: "none", // "email" | "whatsapp" | "none"
@@ -120,10 +123,16 @@ export default function ContactForm({
 
   const errors = useMemo(() => {
     const e = {};
-    if (!isValidName(values.name)) e.name = "Escribe un nombre (mín. 2 caracteres).";
-    if (!isValidPhone(values.phone)) e.phone = "Escribe un teléfono válido (mín. 9 dígitos).";
-    if (!isValidMessage(values.message))
+
+    if (fields?.name !== false && !isValidName(values.name))
+      e.name = "Escribe un nombre (mín. 2 caracteres).";
+
+    if (fields?.phone !== false && !isValidPhone(values.phone))
+      e.phone = "Escribe un teléfono válido (mín. 9 dígitos).";
+
+    if (fields?.message !== false && !isValidMessage(values.message))
       e.message = `La consulta debe tener al menos ${minMessageLength} caracteres.`;
+
     if (values.website.trim()) e.website = "Anti-spam activado.";
 
     if (destination?.type === "email" && !(destination?.emailTo || "").trim())
@@ -132,12 +141,19 @@ export default function ContactForm({
       e.destination = "Falta configurar el número de WhatsApp de destino.";
 
     return e;
-  }, [values, minMessageLength, destination]);
+  }, [values, minMessageLength, destination, fields]);
+
 
   const isFormValid = Object.keys(errors).length === 0;
   const fieldError = (key) => (touched[key] ? errors[key] : "");
 
-  const touchAll = () => setTouched({ name: true, phone: true, message: true });
+  const touchAll = () =>
+    setTouched({
+      name: true,
+      phone: true,
+      message: fields?.message !== false,
+    });
+
 
   const focusFirstError = () => {
     if (errors.name) nameRef.current?.focus();
@@ -153,8 +169,14 @@ export default function ContactForm({
     const n = values.name.trim();
     const p = values.phone.trim();
     const m = values.message.trim();
-    return `Nombre: ${n}\nTeléfono: ${p}\n\nConsulta:\n${m}`;
+
+    let txt = `Nombre: ${n}\nTeléfono: ${p}`;
+    if (fields?.message !== false) {
+      txt += `\n\nConsulta:\n${m}`;
+    }
+    return txt;
   };
+
 
   const openEmail = () => {
     const to = (destination.emailTo || "").trim();
@@ -288,24 +310,27 @@ export default function ContactForm({
         <ErrorText text={fieldError("phone")} />
       </div>
 
-      <div className="grid gap-2">
-        <label className={styles.baseLabel} htmlFor={`${rid}-message`}>
-          {labels.message}
-        </label>
-        <textarea
-          ref={msgRef}
-          id={`${rid}-message`}
-          name="message"
-          rows={5}
-          value={values.message}
-          onChange={setField("message")}
-          onBlur={onBlur("message")}
-          placeholder={placeholders.message}
-          className={styles.baseInput}
-        />
-        <ErrorText text={fieldError("message")} />
-        {privacyText ? <p className={styles.baseHelp}>{privacyText}</p> : null}
-      </div>
+      {fields?.message !== false ? (
+        <div className="grid gap-2">
+          <label className={styles.baseLabel} htmlFor={`${rid}-message`}>
+            {labels.message}
+          </label>
+          <textarea
+            ref={msgRef}
+            id={`${rid}-message`}
+            name="message"
+            rows={5}
+            value={values.message}
+            onChange={setField("message")}
+            onBlur={onBlur("message")}
+            placeholder={placeholders.message}
+            className={styles.baseInput}
+          />
+          <ErrorText text={fieldError("message")} />
+          {privacyText ? <p className={styles.baseHelp}>{privacyText}</p> : null}
+        </div>
+      ) : null}
+
 
       {/* Error de destino */}
       {errors.destination ? (
@@ -321,8 +346,8 @@ export default function ContactForm({
             (status.type === "ok"
               ? "border-emerald-200 text-emerald-700 bg-emerald-50"
               : status.type === "sending"
-              ? "border-zinc-200 text-zinc-700 bg-zinc-50"
-              : "border-rose-200 text-rose-700 bg-rose-50")
+                ? "border-zinc-200 text-zinc-700 bg-zinc-50"
+                : "border-rose-200 text-rose-700 bg-rose-50")
           }
           role="status"
           aria-live="polite"

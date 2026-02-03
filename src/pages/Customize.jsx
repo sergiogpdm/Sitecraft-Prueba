@@ -263,6 +263,10 @@ export default function Customize() {
         subtitle: "Rellena el formulario y te contestamos lo antes posible.",
         submitText: "Enviar",
         minMessageLength: 10,
+
+        fields: { name: true, phone: true, message: true },
+
+        
         labels: { name: "Nombre", phone: "Teléfono", message: "Consulta" },
         placeholders: {
           name: "Tu nombre",
@@ -275,6 +279,7 @@ export default function Customize() {
           whatsappTo: "34600111222",
           subject: "Nueva consulta desde la web",
         },
+        
       });
 
 
