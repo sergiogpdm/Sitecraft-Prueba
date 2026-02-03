@@ -221,7 +221,7 @@ export const siteConfig = {
       "destination": {
         "type": "whatsapp",
         "emailTo": "",
-        "whatsappTo": "614987195",
+        "whatsappTo": "646973301",
         "subject": "Nueva consulta desde la web"
       },
       "enabled": true,
