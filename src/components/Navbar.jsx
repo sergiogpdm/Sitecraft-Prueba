@@ -50,15 +50,17 @@ export default function Navbar() {
   const homeSections = config?.pages?.home?.sections || [];
 
   const sectionNav = useMemo(() => {
-    return homeSections
-      .filter((s) => s?.enabled)
-      .filter((s) => s?.id && s.id !== "hero")
-      .map((s) => ({
-        id: s.id,
-        label: getSectionLabel(s),
-        hash: `#sec-${s.id}`,
-      }));
-  }, [homeSections]);
+  return homeSections
+    .filter((s) => s?.enabled)
+    .filter((s) => s?.id && s.id !== "hero")
+    .filter((s) => !s?.hideFromNav) // ✅ NUEVO
+    .map((s) => ({
+      id: s.id,
+      label: getSectionLabel(s),
+      hash: `#sec-${s.id}`,
+    }));
+}, [homeSections]);
+
 
   const goToSection = (hash) => {
     setOpen(false);
