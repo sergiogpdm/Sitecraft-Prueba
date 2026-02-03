@@ -1,6 +1,6 @@
 export const siteConfig = {
   "brand": {
-    "name": "Despacho de Extranjería · Almería",
+    "name": "Abogados Bolaños Palma",
     "tagline": "Regularización inmigrantes 2026",
     "emojiLogo": "⚖️"
   },
