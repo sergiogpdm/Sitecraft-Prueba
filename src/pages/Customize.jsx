@@ -103,14 +103,32 @@ function ensureCopyPath(config, path, fallbackValue) {
   }
 }
 
-function ensureHomeSection(config, id, enabled = true) {
+function ensureHomeSection(config, id, enabled = true, label) {
   if (!config.pages) config.pages = {};
   if (!config.pages.home) config.pages.home = {};
   if (!Array.isArray(config.pages.home.sections)) config.pages.home.sections = [];
 
-  const exists = config.pages.home.sections.some((s) => s.id === id);
-  if (!exists) config.pages.home.sections.push({ id, enabled });
+  const idx = config.pages.home.sections.findIndex((s) => s.id === id);
+
+  if (idx === -1) {
+    const entry = { id, enabled };
+    if (label) entry.label = label;
+    config.pages.home.sections.push(entry);
+    return;
+  }
+
+  const existing = config.pages.home.sections[idx];
+
+  // No tocamos enabled si ya está definido, salvo que sea undefined
+  if (existing.enabled === undefined) existing.enabled = enabled;
+
+  // Si no tiene label y nos pasan uno, lo guardamos
+  if (label && (!existing.label || String(existing.label).trim() === "")) {
+    existing.label = label;
+  }
 }
+
+
 
 export default function Customize() {
   const { config, setConfig } = useSiteConfig();
@@ -261,14 +279,15 @@ export default function Customize() {
 
 
 
-      ensureHomeSection(next, "hero", true);
-      ensureHomeSection(next, "countdown", true);
-      ensureHomeSection(next, "photoStrip", true);
-      ensureHomeSection(next, "itinerary", true);
-      ensureHomeSection(next, "story", true);
-      ensureHomeSection(next, "benefits", true);
-      ensureHomeSection(next, "gallery", true);
-      ensureHomeSection(next, "contactForm", true);
+      ensureHomeSection(next, "hero", true, "Inicio");
+      ensureHomeSection(next, "countdown", true, "Cuenta atrás");
+      ensureHomeSection(next, "photoStrip", true, "Momentos");
+      ensureHomeSection(next, "itinerary", true, "Itinerario");
+      ensureHomeSection(next, "story", true, "Nuestra historia");
+      ensureHomeSection(next, "benefits", true, "Ventajas");
+      ensureHomeSection(next, "gallery", true, "Galería");
+      ensureHomeSection(next, "contactForm", true, "Contacto");
+
 
 
       return next;

@@ -1,18 +1,16 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
 import HeroSection from "../components/sections/HeroSection.jsx";
 import BenefitsSection from "../components/sections/BenefitsSection.jsx";
 import BestSellersSection from "../components/sections/BestSellersSection.jsx";
 import PromoCtaSection from "../components/sections/PromoCtaSection.jsx";
 import GallerySection from "../components/sections/GallerySection.jsx";
 
-// ✅ YA TENÍAS
 import CountdownSection from "../components/sections/CountdownSection.jsx";
 import ItinerarySection from "../components/sections/ItinerarySection.jsx";
-
-// ✅ NUEVOS (para que no quede sosa)
 import PhotoStripSection from "../components/sections/PhotoStripSection.jsx";
 import StorySection from "../components/sections/StorySection.jsx";
-
-// ✅ NUEVO: sección wrapper para el formulario
 import ContactFormSection from "../components/sections/ContactFormSection.jsx";
 
 import { useSiteConfig } from "../context/SiteConfigContext.jsx";
@@ -22,24 +20,33 @@ const SECTION_MAP = {
   benefits: BenefitsSection,
   bestSellers: BestSellersSection,
   gallery: GallerySection,
-
-  // Soporta ambas keys por si en config usas una u otra
   promoCta: PromoCtaSection,
   promo: PromoCtaSection,
 
-  // ✅ BODA
   countdown: CountdownSection,
   itinerary: ItinerarySection,
   photoStrip: PhotoStripSection,
   story: StorySection,
 
-  // ✅ NUEVO
   contactForm: ContactFormSection,
 };
 
 export default function Home() {
   const { config } = useSiteConfig();
   const sections = config?.pages?.home?.sections || [];
+  const location = useLocation();
+
+  // ✅ Si entras con /#sec-gallery o navegas con hash, baja a la sección
+  useEffect(() => {
+    if (!location.hash) return;
+    const el = document.querySelector(location.hash);
+    if (!el) return;
+
+    // pequeño delay para asegurar que el DOM esté pintado
+    requestAnimationFrame(() => {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }, [location.hash]);
 
   return (
     <div>
@@ -49,7 +56,6 @@ export default function Home() {
           const Comp = SECTION_MAP[s?.id];
           if (!Comp) return null;
 
-          // Pasar data explícita (centralizado)
           const dataMap = {
             hero: config.copy?.hero,
             benefits: config.copy?.benefits,
@@ -58,20 +64,24 @@ export default function Home() {
             promo: config.copy?.promo,
             promoCta: config.copy?.promo,
 
-            // ✅ nuevos
             countdown: config.copy?.countdown,
             itinerary: config.copy?.itinerary,
             photoStrip: config.copy?.photoStrip,
             story: config.copy?.story,
 
-            // ✅ NUEVO
             contactForm: config.copy?.contactForm,
           };
 
           const data = dataMap[s.id];
 
-          // Si existe data, la pasamos. Si no, render normal.
-          return data ? <Comp key={s.id} data={data} /> : <Comp key={s.id} />;
+          // ✅ id para ancla
+          const anchorId = `sec-${s.id}`;
+
+          return (
+            <section key={s.id} id={anchorId} style={{ scrollMarginTop: 92 }}>
+              {data ? <Comp data={data} /> : <Comp />}
+            </section>
+          );
         })}
     </div>
   );
