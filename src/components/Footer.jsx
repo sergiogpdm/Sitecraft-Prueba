@@ -1,6 +1,7 @@
 import Container from "./Container.jsx";
 import { useSiteConfig } from "../context/SiteConfigContext.jsx";
-import sitecraftLogo from "../assets/logogpdm.jpeg";
+import sitecraftLogo from "../assets/powered_by.png";
+import { Link } from "react-router-dom";
 
 const SOCIAL = [
   { key: "instagram", label: "Instagram" },
@@ -24,9 +25,7 @@ export default function Footer({ data, preview = false }) {
   };
 
   const legal = footer.legal || {
-    legalNotice: { label: "Aviso legal", url: "/legal" },
     privacy: { label: "Protección de datos", url: "/privacy" },
-    cookies: { label: "Política de cookies", url: "/cookies" },
   };
 
   const year = new Date().getFullYear();
@@ -46,20 +45,23 @@ export default function Footer({ data, preview = false }) {
         </div>
 
         <Container className="relative py-12 sm:py-14">
-          <div className="grid gap-10 lg:grid-cols-12">
+          {/* ✅ Grid centrado + texto centrado en móvil */}
+          <div className="grid gap-10 lg:grid-cols-12 justify-items-center text-center lg:text-left">
             {/* Marca */}
-            <div className="space-y-4 lg:col-span-4">
+            <div className="space-y-4 lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-left">
               <div>
                 <div className="text-base font-semibold tracking-tight text-[var(--text)]">
                   {brand.name}
                 </div>
                 {brand.tagline && (
-                  <div className="text-xs text-[var(--muted)]">{brand.tagline}</div>
+                  <div className="text-xs text-[var(--muted)]">
+                    {brand.tagline}
+                  </div>
                 )}
               </div>
 
               {footer.about && (
-                <p className="text-sm text-[var(--muted)] leading-relaxed max-w-prose">
+                <p className="text-sm text-[var(--muted)] leading-relaxed max-w-sm">
                   {footer.about}
                 </p>
               )}
@@ -70,10 +72,11 @@ export default function Footer({ data, preview = false }) {
             </div>
 
             {/* Redes */}
-            <div className="space-y-4 lg:col-span-3">
+            {/*
+            <div className="space-y-4 lg:col-span-3 flex flex-col items-center lg:items-start text-center lg:text-left">
               <div className="text-sm font-semibold text-[var(--text)]">Redes</div>
 
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
                 {SOCIAL.map(({ key, label }) => (
                   <SocialButton
                     key={key}
@@ -91,10 +94,13 @@ export default function Footer({ data, preview = false }) {
                 </div>
               )}
             </div>
+            */}
 
             {/* Ubicación */}
-            <div className="space-y-4 lg:col-span-3">
-              <div className="text-sm font-semibold text-[var(--text)]">Ubicación</div>
+            <div className="space-y-4 lg:col-span-3 flex flex-col items-center lg:items-start text-center lg:text-left">
+              <div className="text-sm font-semibold text-[var(--text)]">
+                Ubicación
+              </div>
 
               {contact.hours ? (
                 <p className="text-sm text-[var(--muted)] leading-relaxed">
@@ -107,14 +113,14 @@ export default function Footer({ data, preview = false }) {
               {(contact.address || contact.phone) && (
                 <div className="space-y-2">
                   {contact.address && (
-                    <p className="text-sm text-[var(--muted)]">
-                      <span className="mr-2">📍</span>
+                    <p className="text-sm text-[var(--muted)] flex items-center gap-2 justify-center lg:justify-start">
+                      <span>📍</span>
                       {contact.address}
                     </p>
                   )}
                   {contact.phone && (
-                    <p className="text-sm text-[var(--muted)]">
-                      <span className="mr-2">📞</span>
+                    <p className="text-sm text-[var(--muted)] flex items-center gap-2 justify-center lg:justify-start">
+                      <span>📞</span>
                       {contact.phone}
                     </p>
                   )}
@@ -123,17 +129,17 @@ export default function Footer({ data, preview = false }) {
             </div>
 
             {/* Legal */}
-            <div className="space-y-4 lg:col-span-2">
+            <div className="space-y-4 lg:col-span-2 flex flex-col items-center lg:items-start text-center lg:text-left">
               <div className="text-sm font-semibold text-[var(--text)]">Legal</div>
 
-              <div className="space-y-2">
+              <div className="space-y-2 flex flex-col items-center lg:items-start">
                 <LegalLink item={legal.legalNotice} preview={preview} />
                 <LegalLink item={legal.privacy} preview={preview} />
                 <LegalLink item={legal.cookies} preview={preview} />
               </div>
 
               <div className="pt-2 text-xs text-[var(--muted)] opacity-70">
-                Hecho con Sitecraft
+                
               </div>
             </div>
           </div>
@@ -146,7 +152,7 @@ export default function Footer({ data, preview = false }) {
           <img
             src={sitecraftLogo}
             alt="Sitecraft"
-            className="h-9 w-auto opacity-80"
+            className="h-20 w-auto opacity-80"
             draggable="false"
           />
         </div>
@@ -226,21 +232,26 @@ function LegalLink({ item, preview }) {
   const url = item.url || "#";
   const isExternal = typeof url === "string" && url.startsWith("http");
 
-  const onClick = (e) => {
-    if (preview) return e.preventDefault();
-    if (isExternal) {
-      e.preventDefault();
-      window.open(url, "_blank", "noopener,noreferrer");
-    }
-  };
+  if (isExternal) {
+    return (
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block text-sm text-[var(--muted)] underline underline-offset-4 decoration-transparent hover:decoration-current hover:text-[var(--text)] transition"
+      >
+        {item.label}
+      </a>
+    );
+  }
 
   return (
-    <a
-      href={url}
-      onClick={onClick}
+    <Link
+      to={url}
       className="block text-sm text-[var(--muted)] underline underline-offset-4 decoration-transparent hover:decoration-current hover:text-[var(--text)] transition"
     >
       {item.label}
-    </a>
+    </Link>
   );
 }
+
