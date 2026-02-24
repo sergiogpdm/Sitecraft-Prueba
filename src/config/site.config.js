@@ -1,50 +1,50 @@
 export const siteConfig = {
   "brand": {
-    "name": "Abogados Bolaños Palma",
-    "tagline": "Regularización inmigrantes 2026",
-    "emojiLogo": "⚖️",
-    "logoImage": "/demo/gallery/logobufete.jpeg"
+    "name": "La Ruta Burger",
+    "tagline": "Smash Burgers · Street Food · Madrid",
+    "emojiLogo": "🍔"
   },
   "links": {
-    "whatsapp": "https://wa.me/34TU_NUMERO_AQUI?text=Hola,%20quiero%20información%20sobre%20la%20regularización.",
-    "instagram": "https://instagram.com/TU_CUENTA",
-    "facebook": "https://facebook.com/TU_PAGINA",
-    "maps": "https://www.google.com/maps/search/?api=1&query=Avda.%20de%20la%20Estaci%C3%B3n%20N%C2%BA%206%209%C2%BA%201%C2%AA%2C%2004005%20Almer%C3%ADa%2C%20Espa%C3%B1a"
+    "whatsapp": "https://wa.me/34614987195?text=Hola!%20Quiero%20hacer%20un%20pedido%20🍔",
+    "instagram": "https://instagram.com/larutaburger",
+    "facebook": "https://facebook.com/larutaburger",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Food%20Truck%20La%20Ruta%20Burger%20Madrid"
   },
   "contact": {
-    "phoneDisplay": "(+34) 914 185 069",
-    "phoneTel": "+34914185069",
-    "email": "info@jdimmigration.es",
-    "address": "Avda. de la Estación Nº 6 9º 1ª - 04005 – Almería",
-    "hours": "",
+    "phoneDisplay": "(+34) 614 987 195",
+    "phoneTel": "+34614987195",
+    "email": "larutaburger@gmail.com",
+    "address": "Madrid · Food Truck itinerante",
+    "hours": "Jue-Dom · 19:00–00:00",
     "phone": "614987195"
   },
   "layout": {
-    "showFloatingOrderButton": false,
-    "showNavbarCta": false
+    "showFloatingOrderButton": true,
+    "showNavbarCta": true,
+    "showLanguageSwitcher": false
   },
   "theme": {
     "preset": "roseLuxury",
     "mode": "flat",
-    "scheme": "light",
+    "scheme": "dark",
     "overrides": {
-      "--bg": "#F6F1F3",
-      "--card": "#FFF9FA",
-      "--text": "#1F2937",
-      "--muted": "#6B7280",
-      "--border": "#E6DADD",
-      "--accentA": "#B11226",
-      "--accentB": "#8F0F1E",
-      "--accentSoft": "#F1B7BE",
+      "--bg": "#0B0B0F",
+      "--card": "#11111A",
+      "--text": "#F9FAFB",
+      "--muted": "#A1A1AA",
+      "--border": "#27272A",
+      "--accentA": "#F59E0B",
+      "--accentB": "#EF4444",
+      "--accentSoft": "#2A1E10",
       "--radius": "18px",
       "--btnRadius": "999px",
-      "--shadowY": "14px",
-      "--shadowBlur": "40px",
-      "--shadowOpacity": "0.10",
+      "--shadowY": "16px",
+      "--shadowBlur": "42px",
+      "--shadowOpacity": "0.18",
       "--fontDisplay": "Inter",
       "--fontBody": "Inter",
-      "--glowA": "#F3D6DA",
-      "--glowB": "#EAD1D6"
+      "--glowA": "#1F1408",
+      "--glowB": "#1A0C0C"
     }
   },
   "pages": {
@@ -56,25 +56,25 @@ export const siteConfig = {
           "label": "Inicio"
         },
         {
-          "id": "benefits",
-          "enabled": true,
-          "label": "Requisitos"
-        },
-        {
-          "id": "itinerary",
-          "enabled": true,
-          "label": "Documentación"
-        },
-        {
           "id": "promoCta",
           "enabled": true,
           "label": "",
           "hideFromNav": true
         },
         {
-          "id": "contactForm",
+          "id": "benefits",
           "enabled": true,
-          "label": "Contacto"
+          "label": "Por qué"
+        },
+        {
+          "id": "photoStrip",
+          "enabled": true,
+          "label": "Momentos"
+        },
+        {
+          "id": "itinerary",
+          "enabled": true,
+          "label": "Carta"
         },
         {
           "id": "countdown",
@@ -82,19 +82,19 @@ export const siteConfig = {
           "label": "Cuenta atrás"
         },
         {
-          "id": "photoStrip",
-          "enabled": false,
-          "label": "Momentos"
+          "id": "gallery",
+          "enabled": true,
+          "label": "Galería"
+        },
+        {
+          "id": "contactForm",
+          "enabled": true,
+          "label": "Pedir"
         },
         {
           "id": "story",
           "enabled": false,
-          "label": "Nuestra historia"
-        },
-        {
-          "id": "gallery",
-          "enabled": false,
-          "label": "Galería"
+          "label": "Historia"
         }
       ]
     },
@@ -110,27 +110,41 @@ export const siteConfig = {
   },
   "copy": {
     "hero": {
-      "badge": "",
-      "titleA": "REGULARIZACIÓN",
-      "titleHighlight": "2026",
-      "titleB": "Permiso de trabajo y residencia",
-      "subtitle": "Te asesoramos durante todo el proceso legal, con estudio previo del caso y seguimiento personalizado.",
-      "ctaText": "Contactar por WhatsApp",
-      "ctaHref": "https://wa.me/34TU_NUMERO_AQUI?text=Hola,%20quiero%20información%20sobre%20la%20regularización.",
-      "secondaryText": "Ver datos de contacto",
-      "secondaryHref": "/contact",
+      "badge": "🔥 Smash Burgers",
+      "titleA": "LA RUTA",
+      "titleHighlight": "BURGER",
+      "titleB": "Street Food con sabor real",
+      "subtitle": "Carne 100% vacuno · Pan brioche · Hechas al momento. Pide por WhatsApp y te decimos la ubicación de hoy.",
+      "ctaText": "Pedir por WhatsApp",
+      "ctaHref": "https://wa.me/34614987195?text=Hola!%20Quiero%20hacer%20un%20pedido%20🍔",
+      "secondaryText": "Ver horarios",
+      "secondaryHref": "#pedir",
       "variant": "fullBleed",
       "visual": {
-        "imageSrc": "/demo/gallery/bufete.jpeg"
+        "imageSrc": "/demo/gallery/heroburger.png"
       },
       "background": {
         "style": "corners",
         "pattern": true
       },
       "textColor": "#ffffff",
-      "mutedColor": "#ffffff",
+      "mutedColor": "#E5E7EB",
       "quickInfo": {
-        "items": []
+        "items": [
+          {
+            "label": "📍",
+            "value": "Madrid (itinerante)",
+            "icon": ""
+          },
+          {
+            "label": "⏱️",
+            "value": "Listo en 10–15 min"
+          },
+          {
+            "label": "⭐",
+            "value": "Top Smash Burgers"
+          }
+        ]
       },
       "primaryCta": {
         "label": "",
@@ -140,110 +154,110 @@ export const siteConfig = {
         "message": "",
         "newTab": false
       },
-      "highlightA": "#8c5a5a",
-      "highlightB": "#bf1212"
+      "highlightA": "#F59E0B",
+      "highlightB": "#EF4444"
     },
     "benefits": {
-      "kicker": "Requisitos",
-      "title": "Qué requisitos debes cumplir para solicitar tu permiso:",
-      "subtitle": "Empieza YA. El plazo termina el 30 de junio de 2026.",
+      "kicker": "Por qué elegirnos",
+      "title": "Street food bien hecho. Sin postureo.",
+      "subtitle": "Ingredientes simples + técnica smash = adicción.",
       "items": [
         {
-          "title": "Estar en España antes del 31 de diciembre de 2025",
-          "text": ""
+          "title": "Carne premium",
+          "text": "Vacuno seleccionado, smash crujiente por fuera y jugoso por dentro."
         },
         {
-          "title": "Llevar en España un mínimo de 5 meses viviendo",
-          "text": ""
+          "title": "Hechas al momento",
+          "text": "Nada recalentado. Cada burger sale cuando la pides."
         },
         {
-          "title": "No tener antecedentes penales",
-          "text": ""
+          "title": "Salsa secreta",
+          "text": "La receta de la casa que hace que vuelvas."
         }
       ]
     },
     "itinerary": {
       "enabled": true,
-      "kicker": "Documentación",
-      "title": "Qué documentación necesitas:",
-      "desc": "",
+      "kicker": "Carta rápida",
+      "title": "Lo más pedido",
+      "desc": "3 opciones para ir a tiro hecho.",
       "items": [
         {
-          "time": "1",
-          "title": "Certificado de antecedentes penales de tu país",
-          "desc": "Es importante que lo solicites YA.",
+          "time": "01",
+          "title": "La Clásica Smash",
+          "desc": "Doble carne, cheddar, pepinillo y salsa secreta.",
           "location": ""
         },
         {
-          "time": "2",
-          "title": "Pasaporte vigente",
-          "desc": "",
+          "time": "02",
+          "title": "La Picante",
+          "desc": "Jalapeños, bacon crujiente y salsa spicy.",
           "location": ""
         },
         {
-          "time": "3",
-          "title": "Acreditar mínimo 5 meses viviendo en España",
-          "desc": "Certificado de empadronamiento, informes médicos, envío de dinero, facturas…",
+          "time": "03",
+          "title": "La Trufada",
+          "desc": "Mayonesa de trufa, parmesano y cebolla crujiente.",
           "location": ""
         }
       ]
     },
     "promo": {
-      "kicker": "",
-      "title": "Somos Abogados Especialistas en Extranjería",
-      "subtitle": "No somos gestoría. Revisamos tu expediente de principio a final con seguimiento personalizado.\nAlto porcentaje de éxito en solicitudes aprobadas.",
-      "ctaText": "Hablar por WhatsApp",
-      "ctaHref": "https://wa.me/34TU_NUMERO_AQUI?text=Hola,%20quiero%20información%20sobre%20la%20regularización."
+      "kicker": "Promo",
+      "title": "Happy Hour Smash 🍔",
+      "desc": "De lunes a jueves: 2x1 de 18:00 a 19:00 (según ubicación).",
+      "primaryCta": "Preguntar ubicación de hoy",
+      "secondaryCta": "Ver carta"
     },
     "contactForm": {
       "variant": "card",
-      "title": "Contacta con nosotros",
-      "subtitle": "Déjanos tus datos y te responderemos lo antes posible.",
-      "submitText": "Enviar mensaje",
+      "title": "Pide o reserva para tu evento",
+      "subtitle": "Te respondemos por WhatsApp.",
+      "submitText": "Enviar",
       "minMessageLength": 0,
       "fields": {
         "nameLabel": "Nombre",
         "phoneLabel": "Teléfono",
-        "emailLabel": "Correo electrónico",
-        "messageLabel": "Mensaje",
-        "message": false
+        "emailLabel": "Correo",
+        "messageLabel": "Pedido / consulta",
+        "message": true
       },
       "labels": {
         "name": "Nombre",
         "phone": "Teléfono",
-        "message": "Consulta"
+        "message": "Pedido / consulta"
       },
       "placeholders": {
         "name": "Tu nombre",
         "phone": "+34 600 000 000",
-        "message": "Cuéntanos tu caso…"
+        "message": "Quiero 2 Clásicas + 1 Picante. ¿Dónde estáis hoy?"
       },
       "destination": {
         "type": "whatsapp",
         "emailTo": "",
-        "whatsappTo": "646973301",
-        "subject": "Nueva consulta desde la web"
+        "whatsappTo": "614987195",
+        "subject": "Nuevo pedido desde la web"
       },
       "enabled": true,
-      "kicker": "Contacto",
-      "successText": "Mensaje enviado correctamente."
+      "kicker": "Pedir",
+      "successText": "¡Listo! Te contactamos enseguida."
     },
     "footer": {
-      "title": "Despacho de Extranjería · Almería",
-      "subtitle": "Regularización · Arraigo · Nacionalidad",
+      "title": "La Ruta Burger · Food Truck",
+      "subtitle": "Smash Burgers · Street Food · Madrid",
       "small": "© 2026",
       "social": {
         "instagram": {
           "enabled": true,
-          "url": ""
+          "url": "https://instagram.com/larutaburger"
         },
         "facebook": {
           "enabled": true,
-          "url": ""
+          "url": "https://facebook.com/larutaburger"
         },
         "tiktok": {
-          "enabled": false,
-          "url": ""
+          "enabled": true,
+          "url": "https://tiktok.com/@larutaburger"
         },
         "x": {
           "enabled": false,
@@ -266,11 +280,11 @@ export const siteConfig = {
       "title": "Un poquito de nosotros",
       "note": "",
       "photos": [
-        "",
-        "",
-        "",
-        "",
-        ""
+        "/demo/gallery/hamburguesa1.webp",
+        "/demo/gallery/hamburguesa2.jpg",
+        "/demo/gallery/hamburguesa3.jpg",
+        "/demo/gallery/hamburguesa4.jpg",
+        "/demo/gallery/hamburguesa5.avif"
       ]
     },
     "story": {
@@ -296,6 +310,25 @@ export const siteConfig = {
           "title": "La pedida",
           "text": "Añade aquí un texto corto.",
           "image": ""
+        }
+      ]
+    },
+    "gallery": {
+      "items": [
+        {
+          "imageSrc": "/demo/gallery/hamburguesa1.webp",
+          "alt": "Imagen",
+          "caption": ""
+        },
+        {
+          "imageSrc": "/demo/gallery/hamburguesa2.jpg",
+          "alt": "Imagen",
+          "caption": ""
+        },
+        {
+          "imageSrc": "/demo/gallery/hamburguesa5.avif",
+          "alt": "Imagen",
+          "caption": ""
         }
       ]
     }

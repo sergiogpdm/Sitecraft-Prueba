@@ -1,6 +1,6 @@
 import Container from "./Container.jsx";
 import { useSiteConfig } from "../context/SiteConfigContext.jsx";
-import sitecraftLogo from "../assets/powered_by.png";
+import sitecraftLogo from "../assets/powered_by_blanco.png";
 import { Link } from "react-router-dom";
 
 const SOCIAL = [

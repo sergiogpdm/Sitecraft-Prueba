@@ -24,16 +24,11 @@ function getSectionLabel(section) {
   return DEFAULT_SECTION_LABELS[section?.id] || section?.id;
 }
 
-const navLink = (scrolled) => ({ isActive }) =>
+// ✅ SIEMPRE BLANCO (independiente del scroll)
+const navLink = () => ({ isActive }) =>
   [
     "text-sm font-medium transition-colors duration-300",
-    scrolled
-      ? isActive
-        ? "text-white"
-        : "text-zinc-300 hover:text-white"
-      : isActive
-        ? "text-black"
-        : "text-zinc-700 hover:text-black",
+    isActive ? "text-white" : "text-zinc-300 hover:text-white",
   ].join(" ");
 
 function scrollToTop() {
@@ -117,10 +112,8 @@ export default function Navbar() {
     });
   };
 
-  const sectionBtnClass = [
-    "text-sm font-medium transition-colors duration-300",
-    scrolled ? "text-zinc-300 hover:text-white" : "text-zinc-700 hover:text-black",
-  ].join(" ");
+  // ✅ SIEMPRE BLANCO
+  const sectionBtnClass = "text-sm font-medium transition-colors duration-300 text-zinc-300 hover:text-white";
 
   /**
    * ✅ LOGO FIX:
@@ -149,12 +142,7 @@ export default function Navbar() {
 
   return (
     <motion.header
-      className={[
-        "fixed inset-x-0 top-0 z-50",
-        scrolled
-          ? "border-b border-[var(--border)] bg-zinc-950/70 backdrop-blur-xl"
-          : "bg-transparent",
-      ].join(" ")}
+      className="fixed inset-x-0 top-0 z-50 border-b border-[var(--border)] bg-zinc-950/70 backdrop-blur-xl"
       initial={{ y: -8, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.35, ease: "easeOut" }}
@@ -169,12 +157,8 @@ export default function Navbar() {
         >
           {logoBox}
           <div className="leading-tight">
-            <div className={`text-sm font-semibold transition-colors ${scrolled ? "text-white" : "text-black"}`}>
-              {brand.name}
-            </div>
-            <div className={`text-[11px] transition-colors -mt-0.5 ${scrolled ? "text-zinc-300" : "text-zinc-600"}`}>
-              {brand.tagline}
-            </div>
+            <div className="text-sm font-semibold transition-colors text-white">{brand.name}</div>
+            <div className="text-[11px] transition-colors -mt-0.5 text-zinc-300">{brand.tagline}</div>
           </div>
         </button>
       </div>
@@ -188,15 +172,9 @@ export default function Navbar() {
         )}
       </div>
 
-      
-
       {/* NAV + HEADER MOBILE */}
       <div className="h-16 relative">
-        {/* ✅ HEADER MOBILE NUEVO (más bonito y sin choques)
-            - Logo y título a la izquierda
-            - Botón menú a la derecha
-            - Sin absolutos => no se pisan elementos
-        */}
+        {/* HEADER MOBILE */}
         <div className="md:hidden h-full">
           <Container className="h-full">
             <div className="h-full flex items-center justify-between gap-3">
@@ -208,27 +186,17 @@ export default function Navbar() {
               >
                 {logoBox}
                 <div className="leading-tight min-w-0">
-                  <div
-                    className={`text-sm font-semibold transition-colors truncate ${
-                      scrolled ? "text-white" : "text-black"
-                    }`}
-                    title={brand.name}
-                  >
+                  <div className="text-sm font-semibold transition-colors truncate text-white" title={brand.name}>
                     {brand.name}
                   </div>
-                  <div
-                    className={`text-[11px] transition-colors -mt-0.5 truncate ${
-                      scrolled ? "text-zinc-300" : "text-zinc-600"
-                    }`}
-                    title={brand.tagline}
-                  >
+                  <div className="text-[11px] transition-colors -mt-0.5 truncate text-zinc-300" title={brand.tagline}>
                     {brand.tagline}
                   </div>
                 </div>
               </button>
 
               <button
-                className="shrink-0 rounded-xl border border-[var(--border)] bg-[var(--card)] p-2"
+                className="shrink-0 rounded-xl border border-[var(--border)] bg-[var(--card)] p-2 text-white"
                 onClick={() => setOpen((v) => !v)}
                 aria-label={open ? "Cerrar menú" : "Abrir menú"}
                 aria-expanded={open}
@@ -241,20 +209,20 @@ export default function Navbar() {
           </Container>
         </div>
 
-        {/* NAV CENTRADO REAL (desktop) */}
+        {/* NAV CENTRADO (desktop) */}
         <nav className="hidden md:flex items-center gap-7 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          <button type="button" onClick={goHomeTop} className={navLink(scrolled)({ isActive: location.pathname === "/" })}>
+          <button type="button" onClick={goHomeTop} className={navLink()({ isActive: location.pathname === "/" })}>
             Inicio
           </button>
 
           {config?.pages?.menu?.enabled && (
-            <NavLink to="/carta" className={navLink(scrolled)}>
+            <NavLink to="/carta" className={navLink()}>
               Carta
             </NavLink>
           )}
 
           {config?.pages?.contact?.enabled && (
-            <NavLink to="/contacto" className={navLink(scrolled)}>
+            <NavLink to="/contacto" className={navLink()}>
               Contacto
             </NavLink>
           )}
@@ -266,7 +234,7 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Botón móvil (se mantiene para accesibilidad pero lo ocultamos porque ya está arriba) */}
+        {/* Botón móvil oculto (legacy) */}
         <button
           className="hidden md:hidden"
           onClick={() => setOpen((v) => !v)}
@@ -277,7 +245,7 @@ export default function Navbar() {
         />
       </div>
 
-      {/* ✅ MENÚ MÓVIL NUEVO: drawer lateral (mucho más pro que dropdown) */}
+      {/* MENÚ MÓVIL: drawer lateral */}
       <AnimatePresence>
         {open && (
           <>
@@ -298,7 +266,7 @@ export default function Navbar() {
               className={[
                 "fixed top-0 right-0 z-[70] h-dvh w-[84vw] max-w-[360px] md:hidden",
                 "border-l border-[var(--border)]",
-                scrolled ? "bg-zinc-950/95" : "bg-white/95",
+                "bg-zinc-950/95",
                 "backdrop-blur-xl",
               ].join(" ")}
               initial={{ x: 360 }}
@@ -312,17 +280,13 @@ export default function Navbar() {
                   <div className="flex items-center gap-2 min-w-0">
                     {logoBox}
                     <div className="min-w-0">
-                      <div className={`text-sm font-semibold truncate ${scrolled ? "text-white" : "text-black"}`}>
-                        {brand.name}
-                      </div>
-                      <div className={`text-[11px] -mt-0.5 truncate ${scrolled ? "text-zinc-300" : "text-zinc-600"}`}>
-                        Menú
-                      </div>
+                      <div className="text-sm font-semibold truncate text-white">{brand.name}</div>
+                      <div className="text-[11px] -mt-0.5 truncate text-zinc-300">Menú</div>
                     </div>
                   </div>
 
                   <button
-                    className="shrink-0 rounded-xl border border-[var(--border)] bg-[var(--card)] p-2"
+                    className="shrink-0 rounded-xl border border-[var(--border)] bg-[var(--card)] p-2 text-white"
                     onClick={() => setOpen(false)}
                     aria-label="Cerrar menú"
                     type="button"
@@ -331,27 +295,13 @@ export default function Navbar() {
                   </button>
                 </div>
 
-                {/* Body drawer (scroll) */}
+                {/* Body drawer */}
                 <div className="flex-1 overflow-y-auto px-4 py-4">
-                  {/* Idiomas en móvil (aquí no tapan nada) */}
-                  <div className="pb-4 border-b border-[var(--border)]">
-                    <div className={`text-xs uppercase mb-2 ${scrolled ? "text-zinc-300" : "text-zinc-600"}`}>
-                      Idioma
-                    </div>
-                    
-                  </div>
-
-                  <div className="pt-4 flex flex-col gap-2">
-                    {/* Botones grandes (mejor UX) */}
+                  <div className="flex flex-col gap-2">
                     <button
                       type="button"
                       onClick={goHomeTop}
-                      className={[
-                        "w-full text-left rounded-xl px-4 py-3 border border-[var(--border)]",
-                        scrolled
-                          ? "text-white bg-white/5 hover:bg-white/10"
-                          : "text-black bg-black/5 hover:bg-black/10",
-                      ].join(" ")}
+                      className="w-full text-left rounded-xl px-4 py-3 border border-[var(--border)] text-white bg-white/5 hover:bg-white/10"
                     >
                       Inicio
                     </button>
@@ -360,12 +310,7 @@ export default function Navbar() {
                       <NavLink
                         onClick={() => setOpen(false)}
                         to="/carta"
-                        className={[
-                          "rounded-xl px-4 py-3 border border-[var(--border)]",
-                          scrolled
-                            ? "text-white bg-white/5 hover:bg-white/10"
-                            : "text-black bg-black/5 hover:bg-black/10",
-                        ].join(" ")}
+                        className="rounded-xl px-4 py-3 border border-[var(--border)] text-white bg-white/5 hover:bg-white/10"
                       >
                         Carta
                       </NavLink>
@@ -375,12 +320,7 @@ export default function Navbar() {
                       <NavLink
                         onClick={() => setOpen(false)}
                         to="/contacto"
-                        className={[
-                          "rounded-xl px-4 py-3 border border-[var(--border)]",
-                          scrolled
-                            ? "text-white bg-white/5 hover:bg-white/10"
-                            : "text-black bg-black/5 hover:bg-black/10",
-                        ].join(" ")}
+                        className="rounded-xl px-4 py-3 border border-[var(--border)] text-white bg-white/5 hover:bg-white/10"
                       >
                         Contacto
                       </NavLink>
@@ -388,20 +328,13 @@ export default function Navbar() {
 
                     {sectionNav.length > 0 && (
                       <div className="pt-4">
-                        <div className={`text-xs uppercase mb-2 ${scrolled ? "text-zinc-300" : "text-zinc-600"}`}>
-                          Secciones
-                        </div>
+                        <div className="text-xs uppercase mb-2 text-zinc-300">Secciones</div>
                         <div className="flex flex-col gap-2">
                           {sectionNav.map((s) => (
                             <button
                               key={s.id}
                               onClick={() => goToSection(s.hash)}
-                              className={[
-                                "w-full text-left rounded-xl px-4 py-3 border border-[var(--border)]",
-                                scrolled
-                                  ? "text-white bg-white/5 hover:bg-white/10"
-                                  : "text-black bg-black/5 hover:bg-black/10",
-                              ].join(" ")}
+                              className="w-full text-left rounded-xl px-4 py-3 border border-[var(--border)] text-white bg-white/5 hover:bg-white/10"
                               type="button"
                             >
                               {s.label}
@@ -413,7 +346,7 @@ export default function Navbar() {
                   </div>
                 </div>
 
-                {/* Footer drawer (CTA móvil opcional) */}
+                {/* Footer drawer */}
                 {config?.layout?.showNavbarCta && (
                   <div className="px-4 py-4 border-t border-[var(--border)]">
                     <Button

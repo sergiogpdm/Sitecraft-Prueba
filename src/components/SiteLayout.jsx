@@ -106,9 +106,11 @@ export default function SiteLayout() {
   return (
   <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]" ref={rootRef}>
     {/* Botón de idioma */}
+    {/* 
     <div className="fixed right-4 top-20 md:top-4 z-[9999]">
       <LanguageToggle />
     </div>
+    */}
 
     <Navbar />
 
