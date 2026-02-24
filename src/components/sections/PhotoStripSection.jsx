@@ -1,53 +1,86 @@
 export default function PhotoStripSection({ data, preview }) {
   if (!data?.enabled && !preview) return null;
 
-  const photos = Array.isArray(data?.photos) ? data.photos : [];
+  const photos = Array.isArray(data?.photos)
+    ? data.photos.slice(0, 5)
+    : [];
 
   return (
-    <section className="py-10">
-      <div className="mx-auto max-w-6xl px-6">
-        {(data.kicker || data.title) ? (
-          <div className="mb-5">
-            {data.kicker ? (
+    <section className="py-16">
+      <div className="mx-auto max-w-[1400px] px-6">
+        {(data?.kicker || data?.title) && (
+          <div className="mb-10">
+            {data?.kicker && (
               <div className="text-xs font-semibold tracking-wide text-[var(--muted)]">
                 {data.kicker}
               </div>
-            ) : null}
-            {data.title ? (
-              <div className="mt-1 text-2xl font-semibold">{data.title}</div>
-            ) : null}
+            )}
+
+            {data?.title && (
+              <h2 className="mt-2 text-3xl font-semibold tracking-tight">
+                {data.title}
+              </h2>
+            )}
+
+            {data?.note && (
+              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--muted)]">
+                {data.note}
+              </p>
+            )}
           </div>
-        ) : null}
+        )}
 
-        <div className="grid gap-3 md:grid-cols-12">
-          {photos.slice(0, 5).map((src, i) => (
-            <div
-              key={i}
-              className={[
-                "overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--card)]",
-                i === 0 ? "md:col-span-5" : i === 1 ? "md:col-span-4" : "md:col-span-3",
-              ].join(" ")}
-              style={{ aspectRatio: i === 0 ? "16/10" : "1/1" }}
-            >
-              {/* si src es vacío, muestra placeholder */}
-              {src ? (
-                <img
-                  src={src}
-                  alt={`photo-${i + 1}`}
-                  className="h-full w-full object-cover"
-                  loading="lazy"
-                />
-              ) : (
-                <div className="flex h-full w-full items-center justify-center text-sm text-[var(--muted)]">
-                  Foto {i + 1}
+        {photos.length > 0 ? (
+          <div className="grid grid-cols-12 auto-rows-[200px] gap-4">
+            {photos.map((src, i) => {
+              let span = "";
+
+              // 1️⃣ grande
+              if (i === 0) span = "col-span-6 row-span-2";
+
+              // 2️⃣ alta
+              else if (i === 1) span = "col-span-3 row-span-2";
+
+              // 3️⃣ igual que 2
+              else if (i === 2) span = "col-span-3 row-span-2";
+
+              // 4️⃣ grande igual que 1
+              else if (i === 3) span = "col-span-6 row-span-2";
+
+              // 5️⃣ mismo tamaño que 4
+              else if (i === 4) span = "col-span-6 row-span-2";
+
+              return (
+                <div
+                  key={i}
+                  className={[
+                    "group relative overflow-hidden rounded-3xl",
+                    "border border-[var(--border)] bg-[var(--card)]",
+                    "shadow-sm transition-transform duration-300",
+                    "hover:-translate-y-[2px]",
+                    span,
+                  ].join(" ")}
+                >
+                  {src ? (
+                    <img
+                      src={src}
+                      alt={`photo-${i + 1}`}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center text-sm text-[var(--muted)]">
+                      Foto {i + 1}
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          ))}
-        </div>
-
-        {data.note ? (
-          <div className="mt-5 text-sm text-[var(--muted)]">{data.note}</div>
+              );
+            })}
+          </div>
+        ) : preview ? (
+          <div className="rounded-3xl border border-[var(--border)] bg-[var(--card)] p-6 text-sm text-[var(--muted)]">
+            No hay fotos todavía. Añade imágenes desde el editor.
+          </div>
         ) : null}
       </div>
     </section>

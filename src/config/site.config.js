@@ -1,50 +1,48 @@
 export const siteConfig = {
   "brand": {
-    "name": "La Ruta Burger",
-    "tagline": "Smash Burgers · Street Food · Madrid",
-    "emojiLogo": "🍔"
+    "name": "Black Crown Barber",
+    "tagline": "Cortes clásicos · Estilo moderno",
+    "emojiLogo": "💈",
+    "logoImage": ""
   },
   "links": {
-    "whatsapp": "https://wa.me/34614987195?text=Hola!%20Quiero%20hacer%20un%20pedido%20🍔",
-    "instagram": "https://instagram.com/larutaburger",
-    "facebook": "https://facebook.com/larutaburger",
-    "maps": "https://www.google.com/maps/search/?api=1&query=Food%20Truck%20La%20Ruta%20Burger%20Madrid"
+    "whatsapp": "https://wa.me/34614987195?text=Hola!%20Quiero%20reservar%20una%20cita%20💈",
+    "instagram": "https://instagram.com/blackcrownbarber",
+    "facebook": "",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Black+Crown+Barber+Madrid"
   },
   "contact": {
     "phoneDisplay": "(+34) 614 987 195",
     "phoneTel": "+34614987195",
-    "email": "larutaburger@gmail.com",
-    "address": "Madrid · Food Truck itinerante",
-    "hours": "Jue-Dom · 19:00–00:00",
+    "email": "info@blackcrownbarber.com",
+    "address": "Calle Gran Vía, 21 · Madrid",
+    "hours": "Lun-Sáb · 10:00–21:00",
     "phone": "614987195"
   },
   "layout": {
-    "showFloatingOrderButton": true,
-    "showNavbarCta": true,
-    "showLanguageSwitcher": false
+    "showFloatingOrderButton": false,
+    "showNavbarCta": true
   },
   "theme": {
     "preset": "roseLuxury",
     "mode": "flat",
     "scheme": "dark",
     "overrides": {
-      "--bg": "#0B0B0F",
-      "--card": "#11111A",
-      "--text": "#F9FAFB",
+      "--bg": "#0E0E11",
+      "--card": "#16161C",
+      "--text": "#F3F3F3",
       "--muted": "#A1A1AA",
-      "--border": "#27272A",
-      "--accentA": "#F59E0B",
-      "--accentB": "#EF4444",
-      "--accentSoft": "#2A1E10",
-      "--radius": "18px",
-      "--btnRadius": "999px",
-      "--shadowY": "16px",
-      "--shadowBlur": "42px",
-      "--shadowOpacity": "0.18",
-      "--fontDisplay": "Inter",
-      "--fontBody": "Inter",
-      "--glowA": "#1F1408",
-      "--glowB": "#1A0C0C"
+      "--border": "#262626",
+      "--accentA": "#C6A85B",
+      "--accentB": "#8B6B3F",
+      "--accentSoft": "#1F1A14",
+      "--radius": "14px",
+      "--btnRadius": "10px",
+      "--shadowY": "20px",
+      "--shadowBlur": "50px",
+      "--shadowOpacity": "0.2",
+      "--fontDisplay": "Playfair Display",
+      "--fontBody": "Inter"
     }
   },
   "pages": {
@@ -58,13 +56,12 @@ export const siteConfig = {
         {
           "id": "promoCta",
           "enabled": true,
-          "label": "",
           "hideFromNav": true
         },
         {
           "id": "benefits",
           "enabled": true,
-          "label": "Por qué"
+          "label": "Servicios"
         },
         {
           "id": "photoStrip",
@@ -74,7 +71,17 @@ export const siteConfig = {
         {
           "id": "itinerary",
           "enabled": true,
-          "label": "Carta"
+          "label": "Precios"
+        },
+        {
+          "id": "gallery",
+          "enabled": false,
+          "label": "Galería"
+        },
+        {
+          "id": "contactForm",
+          "enabled": true,
+          "label": "Reservar"
         },
         {
           "id": "countdown",
@@ -82,19 +89,9 @@ export const siteConfig = {
           "label": "Cuenta atrás"
         },
         {
-          "id": "gallery",
-          "enabled": true,
-          "label": "Galería"
-        },
-        {
-          "id": "contactForm",
-          "enabled": true,
-          "label": "Pedir"
-        },
-        {
           "id": "story",
           "enabled": false,
-          "label": "Historia"
+          "label": "Nuestra historia"
         }
       ]
     },
@@ -110,160 +107,85 @@ export const siteConfig = {
   },
   "copy": {
     "hero": {
-      "badge": "🔥 Smash Burgers",
-      "titleA": "LA RUTA",
-      "titleHighlight": "BURGER",
-      "titleB": "Street Food con sabor real",
-      "subtitle": "Carne 100% vacuno · Pan brioche · Hechas al momento. Pide por WhatsApp y te decimos la ubicación de hoy.",
-      "ctaText": "Pedir por WhatsApp",
-      "ctaHref": "https://wa.me/34614987195?text=Hola!%20Quiero%20hacer%20un%20pedido%20🍔",
-      "secondaryText": "Ver horarios",
-      "secondaryHref": "#pedir",
+      "badge": "💈 Barbería Premium",
+      "titleA": "BLACK",
+      "titleHighlight": "CROWN",
+      "titleB": "Donde el estilo empieza",
+      "subtitle": "Cortes clásicos, degradados perfectos y arreglos de barba al detalle.",
+      "ctaText": "Reservar cita",
+      "ctaHref": "https://wa.me/34614987195?text=Hola!%20Quiero%20reservar%20una%20cita%20💈",
       "variant": "fullBleed",
       "visual": {
-        "imageSrc": "/demo/gallery/heroburger.png"
+        "imageSrc": "/demo/gallery/barberia4.jpg"
       },
       "background": {
-        "style": "corners",
-        "pattern": true
-      },
-      "textColor": "#ffffff",
-      "mutedColor": "#E5E7EB",
-      "quickInfo": {
-        "items": [
-          {
-            "label": "📍",
-            "value": "Madrid (itinerante)",
-            "icon": ""
-          },
-          {
-            "label": "⏱️",
-            "value": "Listo en 10–15 min"
-          },
-          {
-            "label": "⭐",
-            "value": "Top Smash Burgers"
-          }
-        ]
-      },
-      "primaryCta": {
-        "label": "",
-        "type": "link",
-        "href": "",
-        "value": "",
-        "message": "",
-        "newTab": false
-      },
-      "highlightA": "#F59E0B",
-      "highlightB": "#EF4444"
+        "style": "ring"
+      }
     },
     "benefits": {
-      "kicker": "Por qué elegirnos",
-      "title": "Street food bien hecho. Sin postureo.",
-      "subtitle": "Ingredientes simples + técnica smash = adicción.",
+      "kicker": "Servicios",
+      "title": "Más que un corte, una experiencia.",
+      "desc": "Precisión, técnica y estilo.",
       "items": [
         {
-          "title": "Carne premium",
-          "text": "Vacuno seleccionado, smash crujiente por fuera y jugoso por dentro."
+          "title": "Corte clásico",
+          "desc": "Tijera y máquina con acabado profesional."
         },
         {
-          "title": "Hechas al momento",
-          "text": "Nada recalentado. Cada burger sale cuando la pides."
+          "title": "Fade / Degradado",
+          "desc": "Transiciones limpias y perfectas."
         },
         {
-          "title": "Salsa secreta",
-          "text": "La receta de la casa que hace que vuelvas."
+          "title": "Arreglo de barba",
+          "desc": "Perfilado, recorte y tratamiento."
         }
       ]
     },
     "itinerary": {
       "enabled": true,
-      "kicker": "Carta rápida",
-      "title": "Lo más pedido",
-      "desc": "3 opciones para ir a tiro hecho.",
+      "kicker": "Tarifas",
+      "title": "Nuestros precios",
+      "desc": "Claridad y calidad.",
       "items": [
         {
-          "time": "01",
-          "title": "La Clásica Smash",
-          "desc": "Doble carne, cheddar, pepinillo y salsa secreta.",
-          "location": ""
+          "time": "25€",
+          "title": "Corte clásico",
+          "desc": "Incluye lavado y acabado."
         },
         {
-          "time": "02",
-          "title": "La Picante",
-          "desc": "Jalapeños, bacon crujiente y salsa spicy.",
-          "location": ""
+          "time": "30€",
+          "title": "Corte + barba",
+          "desc": "Pack completo."
         },
         {
-          "time": "03",
-          "title": "La Trufada",
-          "desc": "Mayonesa de trufa, parmesano y cebolla crujiente.",
-          "location": ""
+          "time": "18€",
+          "title": "Arreglo de barba",
+          "desc": "Perfilado profesional."
         }
       ]
     },
     "promo": {
-      "kicker": "Promo",
-      "title": "Happy Hour Smash 🍔",
-      "desc": "De lunes a jueves: 2x1 de 18:00 a 19:00 (según ubicación).",
-      "primaryCta": "Preguntar ubicación de hoy",
-      "secondaryCta": "Ver carta"
+      "kicker": "Oferta",
+      "title": "Primer corte -20%",
+      "desc": "Para nuevos clientes durante este mes.",
+      "primaryCta": "Reservar ahora"
     },
     "contactForm": {
       "variant": "card",
-      "title": "Pide o reserva para tu evento",
-      "subtitle": "Te respondemos por WhatsApp.",
+      "title": "Reserva tu cita",
+      "subtitle": "Te confirmamos por WhatsApp.",
       "submitText": "Enviar",
-      "minMessageLength": 0,
-      "fields": {
-        "nameLabel": "Nombre",
-        "phoneLabel": "Teléfono",
-        "emailLabel": "Correo",
-        "messageLabel": "Pedido / consulta",
-        "message": true
-      },
-      "labels": {
-        "name": "Nombre",
-        "phone": "Teléfono",
-        "message": "Pedido / consulta"
-      },
-      "placeholders": {
-        "name": "Tu nombre",
-        "phone": "+34 600 000 000",
-        "message": "Quiero 2 Clásicas + 1 Picante. ¿Dónde estáis hoy?"
-      },
       "destination": {
         "type": "whatsapp",
-        "emailTo": "",
         "whatsappTo": "614987195",
-        "subject": "Nuevo pedido desde la web"
+        "subject": "Nueva reserva desde la web"
       },
-      "enabled": true,
-      "kicker": "Pedir",
-      "successText": "¡Listo! Te contactamos enseguida."
+      "enabled": true
     },
     "footer": {
-      "title": "La Ruta Burger · Food Truck",
-      "subtitle": "Smash Burgers · Street Food · Madrid",
-      "small": "© 2026",
-      "social": {
-        "instagram": {
-          "enabled": true,
-          "url": "https://instagram.com/larutaburger"
-        },
-        "facebook": {
-          "enabled": true,
-          "url": "https://facebook.com/larutaburger"
-        },
-        "tiktok": {
-          "enabled": true,
-          "url": "https://tiktok.com/@larutaburger"
-        },
-        "x": {
-          "enabled": false,
-          "url": ""
-        }
-      }
+      "title": "Black Crown Barber",
+      "subtitle": "Estilo · Precisión · Tradición",
+      "small": "© 2026"
     },
     "countdown": {
       "enabled": true,
@@ -280,11 +202,11 @@ export const siteConfig = {
       "title": "Un poquito de nosotros",
       "note": "",
       "photos": [
-        "/demo/gallery/hamburguesa1.webp",
-        "/demo/gallery/hamburguesa2.jpg",
-        "/demo/gallery/hamburguesa3.jpg",
-        "/demo/gallery/hamburguesa4.jpg",
-        "/demo/gallery/hamburguesa5.avif"
+        "/demo/gallery/barberia2.jpg ",
+        "/demo/gallery/barberia1.png",
+        " /demo/gallery/barberia5.jpg",
+        "/demo/gallery/barberia4.jpg",
+        "/demo/gallery/barberia3.jpg"
       ]
     },
     "story": {
@@ -310,25 +232,6 @@ export const siteConfig = {
           "title": "La pedida",
           "text": "Añade aquí un texto corto.",
           "image": ""
-        }
-      ]
-    },
-    "gallery": {
-      "items": [
-        {
-          "imageSrc": "/demo/gallery/hamburguesa1.webp",
-          "alt": "Imagen",
-          "caption": ""
-        },
-        {
-          "imageSrc": "/demo/gallery/hamburguesa2.jpg",
-          "alt": "Imagen",
-          "caption": ""
-        },
-        {
-          "imageSrc": "/demo/gallery/hamburguesa5.avif",
-          "alt": "Imagen",
-          "caption": ""
         }
       ]
     }
